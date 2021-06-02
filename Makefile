@@ -27,14 +27,19 @@ install-recommend-packages:
 	docker-compose exec app composer require --dev beyondcode/laravel-dump-server
 	docker-compose exec app composer require --dev barryvdh/laravel-debugbar
 	docker-compose exec app composer require --dev roave/security-advisories:dev-master
-# Laravel composer
-	docker-compose exec app composer require --dev laravelcollective/html
-# Admin-LTE
-	docker-compose exec app composer require --dev jeroennoten/laravel-adminlte
-	docker-compose exec app php artisan adminlte:install
-	docker-compose exec app php artisan adminlte:install --only=auth_views
 	docker-compose exec app php artisan vendor:publish --provider="BeyondCode\DumpServer\DumpServerServiceProvider"
 	docker-compose exec app php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+# install-recommend-packages追加
+install-recommend-packages-add:
+# Laravel composer
+	docker-compose exec app composer require laravelcollective/html
+# laravel ui
+	docker-compose exec app composer require laravel/ui
+	docker-compose exec app php artisan ui vue --auth
+# Admin-LTE
+	docker-compose exec app composer require jeroennoten/laravel-adminlte
+	docker-compose exec app php artisan adminlte:install
+	docker-compose exec app php artisan adminlte:install --only=auth_views
 init:
 	docker-compose up -d --build
 	docker-compose exec app composer install
