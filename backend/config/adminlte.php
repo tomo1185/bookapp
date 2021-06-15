@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     /*
@@ -188,7 +187,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/mypage/home',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -235,102 +234,48 @@ return [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
-        // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
-        // [
-        //     'text' => 'blog',
-        //     'url'  => 'admin/blog',
-        //     'can'  => 'manage-blog',
-        // ],
         [
-            'text' => 'プロフィール',
-            'url'  => 'admin/settings',
+            'text' => 'ホーム',
+            'url'  => '/mypage/home',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
+            'text' => 'プロフィール設定',
+            // 'url'  => route('mypage.profile.settings' , ['id' => Auth::id()),
+            'url'  => '/mypage/profile/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'    => '本棚',
+            'text'    => '書籍管理',
             'icon'    => 'fas fa-fw fa-book',
             'submenu' => [
                 [
                     'text' => '書籍登録',
                     'icon' => 'fas fa-fw fa-plus-circle',
-                    'url'  => '#',
+                    'url'  => '/mypage/book/register',
                 ],
                 [
                     'text' => '登録書籍検索',
                     'icon' => 'fas fa-fw fa-search',
-                    'url'  => '#',
+                    'url'  => '/mypage/book/title_search',
                 ],
-                [
-                    'text' => '読みたい書籍',
-                    'icon' => 'fas fa-fw fa-heart',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => '読んだ書籍',
-                    'icon' => 'fas fa-fw fa-hourglass-end',
-                    'url'  => '#',
-                ],
-                
+                // [
+                //     'text' => '登録書籍編集',
+                //     'icon' => 'fas fa-fw fa-edit',
+                //     'url'  => '/mypage/book/edit',
+                // ],
+                // [
+                //     'text' => 'お気に入り',
+                //     'icon' => 'fas fa-fw fa-heart',
+                //     'url'  => '#',
+                // ],              
             ],
-        ],      
+            
+        ],
         // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
+        //     'text' => '読書記録',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-record',
         // ],
     ],
 

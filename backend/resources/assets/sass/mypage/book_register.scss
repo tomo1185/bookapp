@@ -1,0 +1,11 @@
+.needs-validation {
+    max-width: 600px;
+    margin: 0 auto;
+
+    .form-width {
+        margin-top: .5rem;
+        #number_of_volumes {
+            width: 100px;
+        }
+    }
+}

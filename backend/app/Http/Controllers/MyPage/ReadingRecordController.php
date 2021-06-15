@@ -4,8 +4,12 @@ namespace App\Http\Controllers\MyPage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\BookInformation;
+use App\Models\ReadingRecord;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class BookRegisterController extends Controller
+class ReadingRecordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,22 +19,22 @@ class BookRegisterController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-    }
-    
-    public function index()
-    {
-        return view('mypage.book.register');
+        // $this->middleware('auth');
+        $this->middleware('verified');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function index()
     {
-        //
+        $login_user = Auth::id();
+        $book_info_data = DB::table('book_information')
+        // ->join('reading_records', 'book_information.book_title_id', '=', 'reading_records.book_title_id')
+        ->select('author_name', 'book_title', 'number_of_volumes')
+        ->where('book_information.registant_id', $login_user)
+        ->get();
+        // dd($book_info_data);
+
+        return view('mypage.home', compact('book_info_data'));
     }
 
     /**

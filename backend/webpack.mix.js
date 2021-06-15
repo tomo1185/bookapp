@@ -11,17 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
+// mix.js('resources/js/app.js', 'public/js')
+    // .vue()
 mix
     // ビルドしたsassをそれぞれ開発側buildディレクトリへ出力
-    .sass('resources/assets/sass/mypage_home.scss', '../resources/assets/build/css/')
-    // .sass('resources/assets/sass/common.scss', '../resources/assets/build/css/')
+    // .sass('resources/assets/sass/home.scss', '../resources/assets/build/css/')
+    .sass('resources/assets/sass/mypage/book_register.scss', 'assets/build/css/mypage/')
+    .sass('resources/assets/sass/mypage/home.scss', 'assets/build/css/mypage/')
+    .sass('resources/assets/sass/mypage/profile_settings.scss', 'assets/build/css/mypage/')
     // buildディレクトリに出力したcssファイルを、toppage.cssというファイルに１つにまとめてpublicディレクトリへ出力する
     .styles(
         [
-            'resources/assets/build/css/mypage_home.css',
-            // 'resources/assets/build/css/common.css',
+            'public/assets/build/css/mypage/book_register.css',
+            'public/assets/build/css/mypage/home.css',
+            'public/assets/build/css/mypage/profile_settings.css'
         ],
         'public/css/style.css'
     )

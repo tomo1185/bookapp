@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MyPage\HomeController;
-use App\Http\Controllers\MyPage\BookRegisterController;
+use App\Http\Controllers\MyPage\ReadingRecordController;
+use App\Http\Controllers\MyPage\BookManageController;
+use App\Http\Controllers\MyPage\ProfileSettingsController;
+use Illuminate\Support\Facades\Auth;
 // use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +16,34 @@ use App\Http\Controllers\MyPage\BookRegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+// Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mypage/home', [HomeController::class, 'index'])->name('mypage.home');
-Route::get('/mypage/book/register', [BookRegisterController::class, 'index'])->name('mypage.register');
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-// Route::group(['prefix' => 'userpage', 'middleware' => 'auth:admin'], function () {
-//     Route::post('logout',   'Admin\LoginController@logout')->name('admin.logout');
-//     Route::get('home',      'Admin\HomeController@index')->name('admin.home');
-// });
+// ---------------------------------
+//*  認証                         */
+// ---------------------------------
+
+Auth::routes(['verify' => true]);
+// ---------------------------------
+//*  サービスページ               */
+// ---------------------------------
+// マイページトップ
+Route::get('/mypage/home', [ReadingRecordController::class, 'index'])->name('mypage.home');
+// プロフィール編集画面
+Route::get('/mypage/profile/settings', [ProfileSettingsController::class, 'edit'])->name('mypage.profile.settings');
+// プロフィールアップデート処理
+Route::post('/mypage/profile/update/{id}', [ProfileSettingsController::class, 'update'])->name('mypage.profile.update');
+// 書籍登録画面
+Route::get('/mypage/book/register', [BookManageController::class, 'create'])->name('book_manage.create');
+// 書籍登録処理
+Route::post('/mypage/book/register', [BookManageController::class, 'store'])->name('book_manage.store');
+// 登録書籍検索
+Route::get('/mypage/book/title_search', [BookManageController::class, 'search'])->name('book_manage.title.search');
+// 登録書籍編集画面
+Route::get('/mypage/book/edit/{id}', [BookManageController::class, 'edit'])->name('book_manage.edit');
+// 登録書籍アップデート
+Route::post('/mypage/book/update/{id}', [BookManageController::class, 'update'])->name('book_manage.update');

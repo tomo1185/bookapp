@@ -1,0 +1,28 @@
+.left-screen {
+    display: inline-block;
+    // text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+
+    .current-profile-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+
+        img {
+            width: 80%;
+            height: 80%;
+            max-width: 200px;
+            max-height: 200px;
+        }
+    }
+}
+
+
+// @media screen and (min-width:576px) {
+//     .left-screen {
+//         background-color: red;
+//     }
+// }
