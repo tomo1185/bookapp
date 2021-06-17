@@ -1,0 +1,18 @@
+開発の参考にしたサイト一覧
+
+・メール(mailhogを使ったテスト環境の作成)
+https://mutimutisan.com/mailhog
+
+
+・パスワードバリデーション
+https://qiita.com/Coolucky/items/8ae60a9f3911423aca0c
+・pattern属性用正規表現
+https://qiita.com/ka215/items/795a179041c705bef03b
+・ファイルのアップロードに関する記事
+https://note.com/laravelstudy/n/n038bd68f53a7
+
+
+chart.js 参考サイト
+https://www.chartjs.org/docs/latest/getting-started/
+
+https://tr.you84815.space/chartjs/gettingStarted.html

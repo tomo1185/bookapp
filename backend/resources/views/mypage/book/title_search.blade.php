@@ -22,7 +22,7 @@
 @section('content')
 
     @php
-    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => 'Actions', 'width' => 5]];
+    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => 'Actions', 'width' => 10]];
     @endphp
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable bordered compressed>
@@ -36,12 +36,12 @@
                     <a href="{{ route('book_manage.edit',['id' => $item->id]) }}"><button type="button" class="btn btn-xs btn-default text-primary shadow" title="Edit">
                         <i class="fa fa-lg fa-fw fa-pen"></i>
                     </button></a>
-                    <button class="btn btn-xs btn-default text-teal shadow" title="Details">
+                    <a href="#"><button class="btn btn-xs btn-default text-teal shadow" title="Details">
                         <i class="fa fa-lg fa-fw fa-eye"></i>
-                    </button>
-                    <button class="btn btn-xs btn-default text-danger shadow" title="Details">
+                    </button></a>
+                    <a href="#"><button class="btn btn-xs btn-default text-danger shadow" title="Details">
                         <i class="fa fa-lg fa-fw fa-trash-alt"></i>
-                    </button>
+                    </button></a>
                 </td>
             </tr>
         @endforeach

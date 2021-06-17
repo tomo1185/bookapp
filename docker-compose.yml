@@ -76,3 +76,9 @@ services:
       - 8080:80
     volumes:
       - pma-session-store:/sessions
+
+  # メール送信確認テスト用(mailhogを使用)
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025

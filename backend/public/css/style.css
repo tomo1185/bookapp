@@ -1,3 +1,18 @@
+#greeting {
+  padding-left: 0.5rem;
+}
+
+canvas {
+  min-height: 200px;
+}
+
+.recently_read {
+  padding-bottom: 1rem;
+}
+.recently_read #recently-read-book {
+  padding-left: 0.2rem;
+}
+
 .needs-validation {
   max-width: 600px;
   margin: 0 auto;
@@ -11,23 +26,27 @@
 
 .actions {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin: 0 0.6rem;
 }
 
-.left-screen {
+.img-screen {
   display: inline-block;
   max-width: 600px;
   margin: 0 auto;
   padding: 0;
 }
-.left-screen .current-profile-img {
+.img-screen #form-padding_profimg {
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+.img-screen .current-profile-img {
   display: flex;
   justify-content: center;
   align-items: center;
   height: auto;
 }
-.left-screen .current-profile-img img {
+.img-screen .current-profile-img img {
   width: 80%;
   height: 80%;
   max-width: 200px;

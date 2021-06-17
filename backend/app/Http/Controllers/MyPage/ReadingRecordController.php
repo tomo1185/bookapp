@@ -13,7 +13,6 @@ class ReadingRecordController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
 
@@ -23,73 +22,33 @@ class ReadingRecordController extends Controller
         $this->middleware('verified');
     }
 
-
     public function index()
     {
         $login_user = Auth::id();
-        $book_info_data = DB::table('book_information')
+        $book_information = DB::table('book_information')
         // ->join('reading_records', 'book_information.book_title_id', '=', 'reading_records.book_title_id')
         ->select('author_name', 'book_title', 'number_of_volumes')
         ->where('book_information.registant_id', $login_user)
         ->get();
-        // dd($book_info_data);
 
-        return view('mypage.home', compact('book_info_data'));
-    }
+        // ページで表示するユーザー名を取得
+        $users = DB::table('users')
+        ->select('name')
+        ->where('id', $login_user)
+        ->first();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $my_charts = DB::table('my_charts')
+        ->select('*')
+        ->where('user_id', $login_user)
+        ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        // DateCalculationController 読み込み(日付と各月の読書数を計算)
+        $date_calculation = app()->make('App\Http\Controllers\MyPage\DateCalculationController');
+        $monthly_reading = $date_calculation->index($login_user, $my_charts);
+        // echo('<pre>');
+        // var_dump($month);
+        // echo('<pre>');
+        return view('mypage.home', compact('book_information', 'monthly_reading', 'users'));
     }
 }

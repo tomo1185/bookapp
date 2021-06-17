@@ -1,5 +1,16 @@
-.actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 .6rem;
+#greeting {
+    padding-left: .5rem;
+}
+
+canvas {
+    min-height: 200px;
+}
+
+.recently_read {
+    padding-bottom: 1rem;
+    // margin: 2rem;
+    #recently-read-book {
+        // margin-top: 2rem;
+        padding-left: .2rem;
+    }
 }

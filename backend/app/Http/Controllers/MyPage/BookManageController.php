@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BookInformation;
 use App\Models\ReadingRecord;
+use App\Models\MyChart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Mockery\Undefined;
+
 
 class BookManageController extends Controller
 {
@@ -41,10 +44,11 @@ class BookManageController extends Controller
      */
     public function store(Request $request)
     {
-        // 1.入力情報を取得
+        // 1.入力情報を取得・その他前処理
         $login_user = Auth::id();
         // var_dump($login_user);
         $book_info = new BookInformation();
+        $read_book_counter = 0; // 読書数をカウントする変数
 
         // 2.重複チェック(書籍タイトルと著者名)
         $input_book_title = $request->input('book_title');
@@ -92,8 +96,16 @@ class BookManageController extends Controller
                 $reading_record->book_volume = $i;
                 $reading_record->read_state = $read_state[$i];
                 $reading_record->save();
+                if ($reading_record->read_state == '既読') {
+                    $read_book_counter++;
+                }
                 // var_dump($reading_record->read_state);
-            }
+            }            
+            // 5. my_chartテーブルの作成
+            $my_chart = new MyChart();
+            $my_chart->user_id = $login_user;
+            $my_chart->read_book_counter = $read_book_counter;
+            $my_chart->save();
         }
         return redirect('mypage/book/register');
     }
@@ -151,7 +163,15 @@ class BookManageController extends Controller
         $login_user = Auth::id();
         $book_info_data = BookInformation::find($id);
         $bf_number_of_volumes = $book_info_data->number_of_volumes;
-
+        $read_book_counter = 0;  // 読書数をカウントする変数
+        $reading_records = DB::table('reading_records')
+            ->select('*')
+            ->where('book_title_id', $id)
+            ->get();
+        foreach ($reading_records as $key => $value) {
+            $bf_read_state[$key + 1] = $value->read_state;
+        }
+        // dd($bf_read_state);
         // 2.重複チェックの準備
         $save_flg = 1;  // $save_flg 1:保存する 0:保存しない
         $input_book_title = $request->input('book_title');
@@ -192,13 +212,13 @@ class BookManageController extends Controller
             $cnt = intval($request->input('number_of_volumes'));
             $reading_record_data = ReadingRecord::find($id);
             $num_diff = $cnt - $bf_number_of_volumes;
-
             // ・巻数が増えていたらINSERT処理
             // ・巻数が減っていたらDELETE処理
             // ・最後にUPDATE処理
             if ($num_diff > 0) {
                 // NSERT処理
                 for ($i = $bf_number_of_volumes + 1; $i <= $cnt; $i++) {
+                    // echo "insert". $i . "=" . $read_state[$i-1];
                     $read_state = $request->input('read_state');
                     $reading_record_data->insert([
                         'book_title_id' => $id,
@@ -212,13 +232,31 @@ class BookManageController extends Controller
             } elseif ($num_diff < 0) {
                 //  DELETE処理
                 for ($j = $bf_number_of_volumes; $j > $cnt; $j--) {
+                    // DELETE処理を行う書籍が既読状態だった場合、読書カウント数を減少させる
+                    if ($bf_read_state[$j] == '既読') {
+                        $read_book_counter--;
+                    }
+                    // echo "delete". $j . "=" . $read_state[$j];
                     $reading_record_data->where('book_volume', $j)
                         ->delete();
                 }
             }
-            //  UPDATE処理
+            //  UPDATE処理と読書数の増減カウント処理
             for ($k = 1; $k <= $cnt; $k++) {
+                // 読書数の増減カウント処理
+                // echo "update". $k . "=" . $bf_read_state[$k]; 読書数カウント確認用
                 $read_state = $request->input('read_state');
+                if (isset($bf_read_state[$k])) {
+                    if ($bf_read_state[$k] == '未読' && $read_state[$k] == '既読') {
+                        $read_book_counter++;
+                    } elseif ($bf_read_state[$k] == '既読' && $read_state[$k] == '未読') {
+                        $read_book_counter--;
+                    }
+                } elseif ($read_state[$k] == '既読') {
+                    $read_book_counter++;
+                }
+                echo 'read_book_counter=' . $read_book_counter . '\n';
+                // UPDATE処理
                 $reading_record_data->where('book_volume', $k)
                     ->update([
                         'read_state' => $read_state[$k],
@@ -226,6 +264,11 @@ class BookManageController extends Controller
                         'updated_at' => Carbon::now()
                     ]);
             }
+            // 5.my_chartテーブルの作成
+            $my_chart = new MyChart();
+            $my_chart->user_id = $login_user;
+            $my_chart->read_book_counter = $read_book_counter;
+            $my_chart->save();
             return redirect('mypage/home');
         }
     }

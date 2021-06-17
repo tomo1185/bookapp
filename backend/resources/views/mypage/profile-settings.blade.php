@@ -23,41 +23,47 @@
     <div class="container">
         <div class="profile-input-wrapper">
             {{-- <div class="row"> --}}
-                <form method="POST" action="{{ route('mypage.profile.update', ['id' => $profile_data->id]) }}" class="g-3 needs-validation" novalidate>
+                <form method="POST" action="{{ route('mypage.profile.update', ['id' => $users->id]) }}" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
                     @csrf
-                    <div class="col-sm-12 left-screen">
+                    <div class="col-sm-12 img-screen">
                         <label for="text" class="form-label current-profile-img-label">現在の画像</label>
                         <div class="current-profile-img">
-                            <img src="{{ url($profile_data->profile_image) }}"  alt="profile-photo">
+                            <img src="{{ Storage::url($users->profile_image) }}"  alt="profile-photo">
+                            {{-- <img src="{{ url($users->profile_image) }}"  alt="profile-photo"> --}}
                         </div> <!-- profile-photo -->
-                        <div class="mt-3">
+                        <div class="mt-3" id="form-padding_profimg">
                             <label for="formFile" class="form-label">プロフィール画像を選択</label>
-                            <input class="form-control" type="file" id="formFile" value="{{ $profile_data->profile_image }}">
+                            <input type="file" class="form-control"  id="formFile" name="profile_image" accept="image/png, image/jpeg">
+                            {{-- <input type="file" class="form-control"  id="formFile" name="profile_image" accept=".jpg, .jpeg, .png"> --}}
+                            <div class="invalid-feedback">
+                                .jpg, .jpeg, .pngのファイル拡張子を選択してください
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="col-12 form-width">
                                 <label for="email" class="form-label">メールアドレス</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $profile_data->email }}" >
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $users->email }}" >
                                 <div class="invalid-feedback">
                                     正しいメールアドレスの形式で入力してください
+                                    @error('email') 
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-12 form-width">
                                 <label for="password1" class="form-label">パスワード変更</label>
-                                <input type="password" class="form-control" name="password" id="password1"
-                                    equired value="">
+                                {{-- 正規表現 ^[ -~]{8,100}$  英数字記号8文字以上100文字以下--}}
+                                <input type="password" class="form-control" name="password" id="password-input" required=true pattern="^[ -~]{8,100}$">
                                 <div class="invalid-feedback">
                                     8文字以上の英数字記号で入力してください
                                 </div>
                             </div>
                             <div class="col-md-12 form-width">
                                 <label for="password2" class="form-label">パスワード入力(再入力)</label>
-                                <input type="password" class="form-control" name="password" id="password2" placeholder=""
-                                    equired value="">
+                                <input type="password" class="form-control" id="password-confirmation-input" required=true pettern="" >
                                 <div class="invalid-feedback">
-                                    8文字以上の英数字記号で入力してください
+                                    空欄もしくはパスワードが不一致です
                                 </div>
                             </div>
                         </div>
@@ -101,23 +107,28 @@
         /*---------------------------------
         バリデーション (パスワード)
         ----------------------------------*/
-        $('form').on('submit', function() {
-        // $(window).keyup(function(e){
-            let error = true;
-            let pw_value = $('#password1').val();
-            // 半角英数字記号8文字以上
-            if ( pw_value.match(/^[ -~]{8,100}$/i)) {
-                error = false;
-            }
-        if ( error ) {
-            // エラーが見つかった場合
-            return false;
-        } else {
-            // エラーがなかった場合
-            return true;
-        }
-    });
-        // /^[a-z\d]{8,100}$/i
+        // password-inputの値とpattern属性を連動させる
+        $('#password-input').on('input', function(){
+            $('#password-confirmation-input').prop('pattern', $(this).val())
+        });
+    //     $('form').on('submit', function() {
+    //     // $(window).keyup(function(e){
+    //         let error = true;
+    //         let pw_value = $('#password1').val();
+    //         // 半角英数字記号8文字以上
+    //         if ( pw_value.match(/^[ -~]{8,100}$/i)) {
+    //             error = false;
+    //         }
+    //     if ( error ) {
+    //         // エラーが見つかった場合
+    //         console.log("エラーあり");
+    //         return false;
+    //     } else {
+    //         // エラーがなかった場合
+    //         console.log("エラーなし");
+    //         return true;
+    //     }
+    // });
         /*---------------------------------
          書籍の全巻数を入力後に各巻数の読書の進捗状況を入力するフォームを出す
         ----------------------------------*/
