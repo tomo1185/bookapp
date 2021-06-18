@@ -10,5 +10,6 @@ canvas {
   padding-bottom: 1rem;
 }
 .recently_read #recently-read-book {
+  margin-top: 2rem;
   padding-left: 0.2rem;
 }

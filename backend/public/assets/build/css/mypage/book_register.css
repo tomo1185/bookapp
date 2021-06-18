@@ -8,3 +8,6 @@
 .needs-validation .form-width #number_of_volumes {
   width: 100px;
 }
+.needs-validation .form-check {
+  margin: 0.5rem;
+}

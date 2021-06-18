@@ -10,6 +10,7 @@ canvas {
   padding-bottom: 1rem;
 }
 .recently_read #recently-read-book {
+  margin-top: 2rem;
   padding-left: 0.2rem;
 }
 
@@ -22,6 +23,9 @@ canvas {
 }
 .needs-validation .form-width #number_of_volumes {
   width: 100px;
+}
+.needs-validation .form-check {
+  margin: 0.5rem;
 }
 
 .actions {

@@ -38,7 +38,7 @@
                 <div class="col-md-6 form-width">
                     <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
                     <input type="text" class="form-control" id="author_name_kana" name="author_name_kana"
-                        placeholder="タナカ タロウ" required value="{{ $book_info_data->author_name_kana }}">
+                        placeholder="たなか たろう" required value="{{ $book_info_data->author_name_kana }}">
                     <div class="invalid-feedback">
                         入力必須項目です
                     </div>
@@ -51,6 +51,23 @@
                         入力必須項目です
                     </div>
                 </div>
+                <div class="col-12 form-width">
+                    <label for="memo" class="form-label">メモ</label>
+                    <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500" wrap="hard">{{ $book_info_data->memo }}</textarea>
+                    <div class="invalid-feedback">
+                        500字以内で入力してください。
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                @if ( $book_info_data->favorite == 1 )
+                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="favorite" checked>
+                @else
+                <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
+                @endif
+                <label class="form-check-label" for="flexCheckDefault">
+                    お気に入りに追加
+                </label>
             </div>
             <div class="form-width">
                 <label for="number_of_volumes" class="form-label">全巻数</label>
@@ -87,9 +104,7 @@
 
 @section('js')
     <script>
-        /*---------------------------------
-                    バリデーション処理
-                    ----------------------------------*/
+        /*-- バリデーション処理--*/
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
             'use strict'
@@ -110,6 +125,20 @@
                     }, false)
                 })
         })()
+
+        /*---------------------------------
+         お気に入り追加チェック判定の処理
+        ----------------------------------*/
+        let favorite = $('input[name="favorite"]');
+        favorite.change(function() {
+            if (favorite.prop('checked')) {
+                // alert("チェックしました");
+                favorite.val("1");
+            } else {
+                // alert("チェックを外しました");
+                favorite.val("0");
+            }
+        });
 
         /*---------------------------------
          書籍の全巻数を入力後に各巻数の読書の進捗状況を入力するフォームを出す
@@ -154,6 +183,7 @@
         });
 
         // ブラウザ読み込み後に読書状況を表示させる
+
         $(document).ready(function() {
             console.log("ready");
         });

@@ -25,11 +25,20 @@ class ReadingRecordController extends Controller
     public function index()
     {
         $login_user = Auth::id();
-        $book_information = DB::table('book_information')
-        // ->join('reading_records', 'book_information.book_title_id', '=', 'reading_records.book_title_id')
-        ->select('author_name', 'book_title', 'number_of_volumes')
+        $book_information= DB::table('book_information')
+        ->join('reading_records', 'book_information.id', '=', 'reading_records.book_title_id')
+        ->select('book_information.author_name', 'book_information.book_title', 'reading_records.updated_at')
+        // ->select('book_information.author_name', 'book_information.book_title', 'reading_records.updated_at')
+        // ->distinct()
+        // ->select('book_information.registant_id', 'author_name', 'book_title', 'number_of_volumes', 'my_charts.updated_at')
         ->where('book_information.registant_id', $login_user)
+        ->groupBy('book_information.author_name', 'book_information.book_title')
+        ->orderBy('reading_records.updated_at', 'desc')
         ->get();
+        
+        // echo('<pre>');
+        // dd($book_information);
+        // echo('</pre>');
 
         // ページで表示するユーザー名を取得
         $users = DB::table('users')

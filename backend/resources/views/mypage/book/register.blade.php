@@ -27,30 +27,45 @@
                 <div class="col-md-6 form-width">
                     <label for="author_name" class="form-label">著者名</label>
                     <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中 太郎"
-                        required>
+                        maxlength="30" required>
                     <div class="invalid-feedback">
                         入力必須項目です
                     </div>
                 </div>
+
                 <div class="col-md-6 form-width">
                     <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
-                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana"
-                        placeholder="タナカ タロウ" required>
+                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="30"
+                        placeholder="たなか たろう" required>
                     <div class="invalid-feedback">
-                        入力必須項目です
+                        入力必須項目です。
                     </div>
                 </div>
                 <div class="col-12 form-width">
                     <label for="book_title" class="form-label">書籍名</label>
-                    <input type="text" class="form-control" id="book_title" name="book_title" required>
+                    <input type="text" class="form-control" id="book_title" name="book_title" maxlength="30" required>
                     <div class="invalid-feedback">
-                        入力必須項目です
+                        入力必須項目です。
+                    </div>
+                </div>
+                <div class="col-12 form-width">
+                    <label for="memo" class="form-label">メモ</label>
+                    <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500" wrap="hard"></textarea>
+                    <div class="invalid-feedback">
+                        500字以内で入力してください。
                     </div>
                 </div>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
+                <label class="form-check-label" for="flexCheckDefault">
+                    お気に入りに追加
+                </label>
+            </div>
             <div class="form-width">
                 <label for="number_of_volumes" class="form-label">全巻数</label>
-                <input type="number" class="form-control" min="1" max="500" id="number_of_volumes" name="number_of_volumes" required>
+                <input type="number" class="form-control" min="1" max="500" id="number_of_volumes" name="number_of_volumes"
+                    required>
                 <div class="invalid-feedback">
                     入力必須項目です。1~500の整数を入力してください
                 </div>
@@ -68,13 +83,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/style.css">
+
 @stop
 
 @section('js')
+    <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
     <script>
-        /*---------------------------------
-        バリデーション処理
-        ----------------------------------*/
+        /*-- バリデーション処理--*/
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
             'use strict'
@@ -96,6 +111,19 @@
                 })
         })()
 
+        /*---------------------------------
+         お気に入り追加チェック判定の処理
+        ----------------------------------*/
+        let favorite = $('input[name="favorite"]');
+        favorite.change(function() {
+            if (favorite.prop('checked')) {
+                favorite.val("1");
+                // alert("チェックしました" + favorite.val());
+            } else {
+                favorite.val("0");
+                // alert("チェックを外しました" + favorite.val());
+            }
+        });
 
         /*---------------------------------
          書籍の全巻数を入力後に各巻数の読書の進捗状況を入力するフォームを出す
@@ -111,7 +139,7 @@
                 // 書籍の巻数が1巻以上valmax巻未満の場合巻ごとの入力フォームを出力する
                 let valmax = 500;
                 if (value > 0 && value <= valmax) {
-                    for (let i=1; i<=value; i++) {
+                    for (let i = 1; i <= value; i++) {
                         if (!($('#vol' + i).length)) {
                             $('#input_progress').append('<div id="vol' + i + '"><p>' + i +
                                 '巻:<select name="read_state[' + i +
@@ -119,7 +147,7 @@
                             );
                         }
                     }
-                    for ( let j=valmax; j>value; j--) {
+                    for (let j = valmax; j > value; j--) {
                         if ($('#vol' + j).length) {
                             $('#vol' + j).remove();
                         }
@@ -127,7 +155,7 @@
                 } else {
                     $("#input_progress").empty();
                     if (value > valmax) {
-                        $('#input_progress').append('<p>' +valmax +'巻以内で入力してください</p>');
+                        $('#input_progress').append('<p>' + valmax + '巻以内で入力してください</p>');
                     } else {
                         $('#input_progress').append('<p>全巻数を入力後に表示</p>');
                     }
