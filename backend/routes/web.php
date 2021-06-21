@@ -43,7 +43,11 @@ Route::get('/mypage/book/register', [BookManageController::class, 'create'])->na
 Route::post('/mypage/book/register', [BookManageController::class, 'store'])->name('book_manage.store');
 // 登録書籍検索
 Route::get('/mypage/book/title_search', [BookManageController::class, 'search'])->name('book_manage.title.search');
+// 登録書籍詳細閲覧
+Route::get('/mypage/book/detail/{id}', [BookManageController::class, 'detail'])->name('book_manage.detail');
 // 登録書籍編集画面
 Route::get('/mypage/book/edit/{id}', [BookManageController::class, 'edit'])->name('book_manage.edit');
 // 登録書籍アップデート
 Route::post('/mypage/book/update/{id}', [BookManageController::class, 'update'])->name('book_manage.update');
+// 登録書籍削除
+Route::post('/mypage/book/destroy/{id}', [BookManageController::class, 'destroy'])->name('book_manage.destroy');

@@ -11,8 +11,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="http://127.0.0.1/mypage/home">ホーム</a></li>
-                    <li class="breadcrumb-item"><a href="http://127.0.0.1/mypage/book/title_search">登録書籍検索</a></li>
+                    <li class="breadcrumb-item"><a href="/mypage/home">ホーム</a></li>
+                    <li class="breadcrumb-item"><a href="/mypage/book/title_search">登録書籍検索</a></li>
                     <li class="breadcrumb-item active">登録書籍編集</li>
                 </ol>
             </div><!-- /.col -->

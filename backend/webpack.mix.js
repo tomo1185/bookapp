@@ -20,6 +20,7 @@ mix
     .sass('resources/assets/sass/mypage/book_register.scss', 'assets/build/css/mypage/')
     .sass('resources/assets/sass/mypage/title_search.scss', 'assets/build/css/mypage/')
     .sass('resources/assets/sass/mypage/profile_settings.scss', 'assets/build/css/mypage/')
+
     // buildディレクトリに出力したcssファイルを、toppage.cssというファイルに１つにまとめてpublicディレクトリへ出力する
     .styles(
         [
@@ -29,4 +30,13 @@ mix
             'public/assets/build/css/mypage/profile_settings.css'
         ],
         'public/css/style.css'
+    ),
+mix
+    .sass('resources/assets/sass/mypage/toppage.scss', 'assets/build/css/mypage')
+
+    .styles(
+        [
+            'public/assets/build/css/toppage.css',
+        ],
+        'public/css/toppage.css'
     )

@@ -16,3 +16,20 @@ chart.js 参考サイト
 https://www.chartjs.org/docs/latest/getting-started/
 
 https://tr.you84815.space/chartjs/gettingStarted.html
+
+
+Conoha VPSにdocker環境構築
+参考サイト:https://create-it-myself.com/know-how/construct-docker-env-on-conoha-vps/
+
+以下のコマンドを実行
+$ cd ~
+$ curl -fsSL get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
+
+一般ユーザーをdockerグループに追加
+sudo usermod -aG docker [ユーザ名]
+cat /etc/group | grep [ユーザ名]
+docker:x:999:[ユーザ名]
+
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose

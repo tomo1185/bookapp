@@ -133,6 +133,18 @@ class BookManageController extends Controller
         return view('mypage.book.title_search', compact('book_info_data'));
     }
 
+    public function detail($id)
+    {
+        $book_info_data = BookInformation::find($id);
+        $reading_record_data = DB::table('reading_records')
+        ->select('id', 'book_volume', 'read_state', 'book_title_id')
+        ->where('book_title_id', $id)
+        ->get();
+        
+        return view('mypage.book.detail', compact('book_info_data', 'reading_record_data'));
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,9 +166,8 @@ class BookManageController extends Controller
             ->select('id', 'book_volume', 'read_state', 'book_title_id')
             ->where('book_title_id', $id)
             ->get();
-        // dd($reading_record_data);
-
-        return view('mypage.book.edit', compact('book_info_data', 'reading_record_data'));
+            
+            return view('mypage.book.edit', compact('book_info_data', 'reading_record_data'));
     }
 
     /**
@@ -322,7 +333,7 @@ class BookManageController extends Controller
             $my_chart->user_id = $login_user;
             $my_chart->read_book_counter = $read_book_counter;
             $my_chart->save();
-            // return redirect('mypage/home');
+            return redirect('mypage/home');
         }
     }
 
@@ -334,6 +345,11 @@ class BookManageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book_info_data = BookInformation::find($id);
+        $aaa = DB::table('reading_records')
+        ->where('book_title_id', $id)
+        ->delete();
+        $book_info_data->delete();
+        return redirect('/mypage/book/title_search');
     }
 }

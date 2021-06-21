@@ -1,0 +1,28 @@
+.img-screen {
+  display: inline-block;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+}
+.img-screen #form-padding_profimg {
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+.img-screen .current-profile-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+}
+.img-screen .current-profile-img img {
+  width: 80%;
+  height: 80%;
+  max-width: 200px;
+  max-height: 200px;
+}/*# sourceMappingURL=profile_settings.css.map */
