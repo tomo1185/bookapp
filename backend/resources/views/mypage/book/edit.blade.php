@@ -30,55 +30,70 @@
                 <div class="col-md-6 form-width">
                     <label for="author_name" class="form-label">著者名</label>
                     <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中 太郎" equired
-                        value="{{ $book_info_data->author_name }}">
+                        maxlength="30" value="{{ $book_info_data->author_name }}">
                     <div class="invalid-feedback">
-                        入力必須項目です
+                        入力必須項目です。
                     </div>
                 </div>
                 <div class="col-md-6 form-width">
                     <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
-                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana"
+                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="30"
                         placeholder="たなか たろう" required value="{{ $book_info_data->author_name_kana }}">
                     <div class="invalid-feedback">
-                        入力必須項目です
+                        入力必須項目です。
                     </div>
                 </div>
                 <div class="col-12 form-width">
                     <label for="book_title" class="form-label">書籍名</label>
-                    <input type="text" class="form-control" id="book_title" name="book_title" required
+                    <input type="text" class="form-control" id="book_title" name="book_title" maxlength="30" required
                         value="{{ $book_info_data->book_title }}">
                     <div class="invalid-feedback">
-                        入力必須項目です
+                        入力必須項目です。
                     </div>
                 </div>
                 <div class="col-12 form-width">
                     <label for="memo" class="form-label">メモ</label>
-                    <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500" wrap="hard">{{ $book_info_data->memo }}</textarea>
+                    <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500"
+                        wrap="hard">{{ $book_info_data->memo }}</textarea>
                     <div class="invalid-feedback">
                         500字以内で入力してください。
                     </div>
                 </div>
             </div>
             <div class="form-check">
-                @if ( $book_info_data->favorite == 1 )
-                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="favorite" checked>
+                @if ($book_info_data->favorite == 1)
+                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="favorite" checked>
                 @else
-                <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
+                    <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
                 @endif
                 <label class="form-check-label" for="flexCheckDefault">
                     お気に入りに追加
                 </label>
             </div>
-            <div class="form-width">
+            <div class="form-width" id="number_of_volumes_form">
                 <label for="number_of_volumes" class="form-label">全巻数</label>
-                <input type="number" class="form-control" min="1" max="500" id="number_of_volumes" name="number_of_volumes"
-                    required value="{{ $book_info_data->number_of_volumes }}">
-                <div class="invalid-feedback">
-                    入力必須項目です。1~500の整数を入力してください
+                <div class="row">
+                    <input type="number" class="form-control" min="1" max="500" id="number_of_volumes"
+                        name="number_of_volumes" value="{{ $book_info_data->number_of_volumes }}" required>
+                    <button type="button" class="btn btn-primary" id="refrect_button">反映する</button>
+                    <div class="invalid-feedback">
+                        入力必須項目です。1~500の整数を入力してください。
+                    </div>
                 </div>
             </div>
             <div class="form-width">
                 <label for="progress" class="form-label">進捗状況</label>
+                <div class="row" id="batch_change">
+                    <input type="number" id="batch_change_min" min="1" max="500">
+                    <p>&nbsp;巻から&nbsp;</p>
+                    <input type="number" id="batch_change_max" min="1" max="500">
+                    <p>&nbsp;巻まで&nbsp;</p>
+                    <select id="batch_change_select">
+                        <option value="既読">既読</option>
+                        <option value="未読">未読</option>
+                    </select>
+                    <button type="button" class="btn btn-primary" id="batch_change_button">一括変更</button>
+                </div>
                 <div class="row" id="input_progress">
                     @foreach ($reading_record_data as $item)
                         <div id="vol{{ $loop->iteration }}">
@@ -88,11 +103,11 @@
                                     <option value="既読" @if ($item->read_state == '既読') selected @endif>既読</option>
                                 </select>
                             </p>
-                        </div>
+                        </div>&nbsp;
                     @endforeach
                     {{-- ここに読書の進捗状況を入力するフォームが出力される --}}
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">送信</button>
+                <button type="submit" class="btn btn-primary mt-2" id="register_submit">送信</button>
             </div>
         </form>
     </div>
@@ -103,6 +118,7 @@
 @stop
 
 @section('js')
+    <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
     <script>
         /*-- バリデーション処理--*/
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -141,40 +157,15 @@
         });
 
         /*---------------------------------
-         書籍の全巻数を入力後に各巻数の読書の進捗状況を入力するフォームを出す
+         書籍の全巻数を入力後、反映ボタンを押すまで、
+         一括変更ボタンと送信ボタンが押せなくなる
         ----------------------------------*/
         jQuery(function() {
             function some_handler() {
-                let value = $('#number_of_volumes').val();
-                // 書籍の巻数が変更されたら以前の出力フォームを消す
-
-                if (!($('#vol1').length)) {
-                    $("#input_progress").empty();
-                }
-                // 書籍の巻数が1巻以上valmax巻未満の場合巻ごとの入力フォームを出力する
-                let valmax = 500;
-                if (value > 0 && value <= valmax) {
-                    for (let i = 1; i <= value; i++) {
-                        if (!($('#vol' + i).length)) {
-                            $('#input_progress').append('<div id="vol' + i + '"><p>' + i +
-                                '巻:<select name="read_state[' + i +
-                                ']"><option value="未読">未読</option><option value="既読">既読</option></select></p></div>'
-                            );
-                        }
-                    }
-                    for (let j = valmax; j > value; j--) {
-                        if ($('#vol' + j).length) {
-                            $('#vol' + j).remove();
-                        }
-                    }
-                } else {
-                    $("#input_progress").empty();
-                    if (value > valmax) {
-                        $('#input_progress').append('<p>' + valmax + '巻以内で入力してください</p>');
-                    } else {
-                        $('#input_progress').append('<p>全巻数を入力後に表示</p>');
-                    }
-                }
+                // 送信ボタン
+                $(":submit").prop("disabled", true);
+                //  一括変更ボタン
+                $("#batch_change_button").prop("disabled", true);
             }
             // キーボードを押し終わった後にイベント発生
             $('#number_of_volumes').keyup(some_handler);
@@ -182,11 +173,96 @@
             $('#number_of_volumes').change(some_handler);
         });
 
-        // ブラウザ読み込み後に読書状況を表示させる
+        /*---------------------------------
+         書籍の全巻数を入力後に反映ボタンを押すと、
+         各巻数の読書の進捗状況を入力するフォームを出す
+        ----------------------------------*/
 
-        $(document).ready(function() {
-            console.log("ready");
+        jQuery(function() {
+            function push_refrect_button() {
+                let num_of_val = $('#number_of_volumes').val();
+                // 書籍の巻数が変更されたら以前の出力フォームを消す
+
+                if (!($('#vol1').length)) {
+                    $("#input_progress").empty();
+                }
+                // 書籍の巻数が1巻以上valmax巻未満の場合巻ごとの入力フォームを出力する
+                let valmax = 500;
+                if (num_of_val > 0 && num_of_val <= valmax) {
+                    // 送信ボタンと一括変更ボタンが押せるようになる
+                    $(":submit").prop("disabled", false);
+                    $("#batch_change_button").prop("disabled", false);
+                    for (let i = 1; i <= num_of_val; i++) {
+                        if (!($('#vol' + i).length)) {
+                            $('#input_progress').append(
+                                '<div id="vol' + i + '" class="ml-1"><p>' + i +
+                                '巻:<select name="read_state[' + i +
+                                ']"><option value="未読">未読</option><option value="既読">既読</option></select></p></div>'
+                            );
+                        }
+                    }
+                    for (let j = valmax; j > num_of_val; j--) {
+                        if ($('#vol' + j).length) {
+                            $('#vol' + j).remove();
+                        }
+                    }
+                } else {
+                    $("#input_progress").empty();
+                    if (num_of_val > valmax) {
+                        $('#input_progress').append('<p>' + valmax + '巻以内で入力してください。</p>');
+                    } else {
+                        $('#input_progress').append('<p>全巻数を入力後、「反映する」ボタンを押してください。</p>');
+                    }
+                }
+            }
+            // 反映ボタンを押したらイベント発生
+            $('#refrect_button').click(push_refrect_button);
         });
 
+        /*---------------------------------
+        一括変更ボタンを押したときの変更処理
+        ----------------------------------*/
+        jQuery(function() {
+            function batch_change() {
+                // 1. 変数の定義
+                let min_val = Number($('#batch_change_min').val()); // 一括変更時の小さい数字
+                let max_val = Number($('#batch_change_max').val()); // 一括変更時の大きい数字
+                let num_of_val = Number($('#number_of_volumes').val()); // 全巻数
+                let common = [min_val, max_val, num_of_val]; //上記変数を共通チェック処理で使用
+                let valmax = 500; // 入力数値の上限値
+                let = change_flg = 1; //値の一括変更フラグ 1:変更する 0:変更しない
+                // 2. 値のチェック処理(共通)
+                for (let j = 0; j < 3; j++) {
+                    if (common[j] < 1 || valmax < common[j] || common[j] == "") {
+                        alert("入力値が不正です。1 ~ 全巻数までの数値を入力してください。");
+                        change_flg = 0;
+                        break;
+                    }
+                }
+                if (change_flg == 1) {
+                    if (min_val > max_val || max_val > num_of_val) {
+                        alert("入力値が不正です。値を確認してください。");
+                        change_flg = 0;
+                    }
+                }
+
+                // 3. 一括変更処理
+                if (change_flg == 1) {
+                    for (let k = min_val; k <= max_val; k++) {
+
+                        let change_target = $('select[name="read_state[' + k + ']"]');
+                        let change_val = $("#batch_change_select").val();
+                            change_target.children().remove();
+                        if (change_val == "既読") {
+                            change_target.append('<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>');
+                        }
+                        if (change_val == "未読") {
+                            change_target.append('<option value="未読" selected>未読</option><option value="既読">既読</option></select></p></div>');
+                        }
+                    }
+                }
+            }
+        $('#batch_change_button').click(batch_change);
+        });
     </script>
 @stop

@@ -21,8 +21,8 @@
     <p id="greeting">{{ $users->name }}さん、おかえりなさい</p>
 
     <!--------------------------------
-                                    Chart.jsによる読書記録グラフ
-                                    --------------------------------->
+     Chart.jsによる読書記録グラフ
+    --------------------------------->
     <!-- Chart.js読み込み -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileSettingsController extends Controller
 {
@@ -74,7 +75,7 @@ class ProfileSettingsController extends Controller
                     'email' => $request->input('email'),
                     // 'email_verified_at' => null,
                     'profile_image' => $path,
-                    'password' => $request->input('password'),
+                    'password' => Hash::make($request->input('password')),
                     'updated_at' => Carbon::now()
                 ]);
             }

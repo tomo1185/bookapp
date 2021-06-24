@@ -11,4 +11,34 @@
     .form-check {
         margin: .5rem;
     }
+    #number_of_volumes {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+#batch_change {
+    margin-bottom: 10px;
+    #batch_change_min {
+        width: 60px;
+        margin-left: 10px;
+        text-align: center;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+    #batch_change_max {
+        width: 60px;
+        text-align: center;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+    p {
+        margin:auto 0;
+    }
+    #batch_change_button {
+        margin-left: 10px;
+    }
+    #batch_change_select {
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
 }

@@ -30,13 +30,26 @@ mix
             'public/assets/build/css/mypage/profile_settings.css'
         ],
         'public/css/style.css'
+<<<<<<< HEAD
     ),
 mix
     .sass('resources/assets/sass/mypage/toppage.scss', 'assets/build/css/mypage')
 
+=======
+    )
+mix
+    // ビルドしたsassをそれぞれ開発側buildディレクトリへ出力
+    .sass('resources/assets/sass/toppage.scss', 'assets/build/css/')
+
+    // buildディレクトリに出力したcssファイルを、toppage.cssというファイルに１つにまとめてpublicディレクトリへ出力する
+>>>>>>> 作業途中コミット
     .styles(
         [
             'public/assets/build/css/toppage.css',
         ],
+<<<<<<< HEAD
         'public/css/toppage.css'
+=======
+        'public/css/top.css'
+>>>>>>> 作業途中コミット
     )
