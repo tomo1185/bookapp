@@ -44,6 +44,8 @@ class BookManageController extends Controller
      */
     public function store(Request $request)
     {
+        // 47-72行 バリデーション→コントローラー内では行わない!
+        // formrequestvalidation
         // 1.入力情報を取得・その他前処理
         $login_user = Auth::id();
         // var_dump($login_user);
@@ -56,7 +58,7 @@ class BookManageController extends Controller
         // book_informationテーブルから書籍名と著者を取得
         $DB_books = DB::table('book_information')
             ->select('book_title', 'author_name')
-            ->where('registant_id', $login_user)
+            ->where('registant_id', $login_user) //user_id
             ->get();
 
         // 3.入力情報とbook_informationテーブルの保存内容の比較処理
@@ -110,7 +112,7 @@ class BookManageController extends Controller
                 }
                 // var_dump($reading_record->read_state);
             }
-            // 5. my_chartテーブルの作成
+            // 5. my_chartレコードの作成
             $my_chart = new MyChart();
             $my_chart->user_id = $login_user;
             $my_chart->read_book_counter = $read_book_counter;
@@ -123,6 +125,7 @@ class BookManageController extends Controller
 
     public function search()
     {
+        // バリデーションで行う
         $login_user = Auth::id();
         $book_info_data = DB::table('book_information')
             // ->join('reading_records', 'book_information.book_title_id', '=', 'reading_records.book_title_id')
@@ -252,6 +255,7 @@ class BookManageController extends Controller
             // echo ('</pre>');
             // dd($reading_record_data);
             $num_diff = $cnt - $bf_number_of_volumes;
+            // それぞれの処理は別のコントローラにに分ける
             // ・巻数が増えていたらINSERT処理
             // ・巻数が減っていたらDELETE処理
             // ・最後にUPDATE処理

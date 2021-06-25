@@ -26,7 +26,8 @@ class DateCalculationController extends Controller
                 'last_day' => strtotime('last day of -' . $i . ' month') - $todays_elapsed_time,
                 'monthly_reading_result' => 0,
                 // 'days' => (strtotime('last day  -' . $i . ' month') - strtotime('first day of -' . $i . ' month')) / 86400,
-            ];   
+            ];
+            
             foreach ($my_charts as $my_chart => $value) {
                 $updated_at = strtotime($value->updated_at); // mychartテーブルの項目のアップデート日をタイムスタンプに変換
                 # 過去6ヶ月間の月ごとに読んだ書籍数をカウントする
@@ -35,6 +36,7 @@ class DateCalculationController extends Controller
                 }
             }
         }
+
         // 確認用
         // echo('<pre>');
         // dd($month);

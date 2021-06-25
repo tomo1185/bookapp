@@ -54,7 +54,7 @@
                 <div class="col-md-6 form-width">
                     <label for="book_title_kana" class="form-label">書籍名(ふりがな)</label>
                     <input type="text" class="form-control" id="book_title_kana" name="book_title_kana" maxlength="60"
-                     value="{{ $book_info_data->book_title_kana }}" required>
+                        value="{{ $book_info_data->book_title_kana }}" required>
                     <div class="invalid-feedback">
                         入力必須項目です。
                     </div>
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="form-width">
-                <label for="progress" class="form-label">進捗状況</label>
+                <label for="progress" class="form-label">読書状況</label>
                 <div class="row" id="batch_change">
                     <input type="number" id="batch_change_min" min="1" max="500">
                     <p>&nbsp;巻から&nbsp;</p>
@@ -102,18 +102,20 @@
                     </select>
                     <button type="button" class="btn btn-primary" id="batch_change_button">一括変更</button>
                 </div>
-                <div class="row" id="input_progress">
-                    @foreach ($reading_record_data as $item)
-                        <div id="vol{{ $loop->iteration }}">
-                            <p>{{ $item->book_volume }}巻:
-                                <select name="read_state[{{ $loop->iteration }}]">
-                                    <option value="未読" @if ($item->read_state == '未読') selected @endif>未読</option>
-                                    <option value="既読" @if ($item->read_state == '既読') selected @endif>既読</option>
-                                </select>
-                            </p>
-                        </div>&nbsp;
-                    @endforeach
-                    {{-- ここに読書の進捗状況を入力するフォームが出力される --}}
+                <div class="overflow-auto">
+                    <div class="row" id="input_progress">
+                        @foreach ($reading_record_data as $item)
+                            <div id="vol{{ $loop->iteration }}">
+                                <p>{{ $item->book_volume }}巻:
+                                    <select name="read_state[{{ $loop->iteration }}]">
+                                        <option value="未読" @if ($item->read_state == '未読') selected @endif>未読</option>
+                                        <option value="既読" @if ($item->read_state == '既読') selected @endif>既読</option>
+                                    </select>
+                                </p>
+                            </div>&nbsp;
+                        @endforeach
+                        {{-- ここに読書の読書状況を入力するフォームが出力される --}}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2" id="register_submit">送信</button>
             </div>
@@ -183,7 +185,7 @@
 
         /*---------------------------------
          書籍の全巻数を入力後に反映ボタンを押すと、
-         各巻数の読書の進捗状況を入力するフォームを出す
+         各巻数の読書の読書状況を入力するフォームを出す
         ----------------------------------*/
 
         jQuery(function() {
@@ -200,6 +202,7 @@
                     // 送信ボタンと一括変更ボタンが押せるようになる
                     $(":submit").prop("disabled", false);
                     $("#batch_change_button").prop("disabled", false);
+                    // 全巻数を増やした時、読書状況のドロップダウンボタンを追加
                     for (let i = 1; i <= num_of_val; i++) {
                         if (!($('#vol' + i).length)) {
                             $('#input_progress').append(
@@ -209,11 +212,15 @@
                             );
                         }
                     }
+                    // 全巻数を減らした時、読書状況のドロップダウンボタンを減らす
                     for (let j = valmax; j > num_of_val; j--) {
                         if ($('#vol' + j).length) {
                             $('#vol' + j).remove();
                         }
                     }
+                    // 一括変更ボタンの最小値と最大値の初期値を設定
+                    $('#batch_change_min').val(1);
+                    $('#batch_change_max').val(num_of_val);
                 } else {
                     $("#input_progress").empty();
                     if (num_of_val > valmax) {
@@ -239,6 +246,7 @@
                 let common = [min_val, max_val, num_of_val]; //上記変数を共通チェック処理で使用
                 let valmax = 500; // 入力数値の上限値
                 let = change_flg = 1; //値の一括変更フラグ 1:変更する 0:変更しない
+                let change_val = $("#batch_change_select").val();
                 // 2. 値のチェック処理(共通)
                 for (let j = 0; j < 3; j++) {
                     if (common[j] < 1 || valmax < common[j] || common[j] == "") {
@@ -247,6 +255,11 @@
                         break;
                     }
                 }
+                console.log("change_flg=" + change_flg);
+                console.log("min_val=" + min_val);
+                console.log("max_val=" + max_val);
+                console.log("num_of_val=" + num_of_val);
+
                 if (change_flg == 1) {
                     if (min_val > max_val || max_val > num_of_val) {
                         alert("入力値が不正です。値を確認してください。");
@@ -259,18 +272,22 @@
                     for (let k = min_val; k <= max_val; k++) {
 
                         let change_target = $('select[name="read_state[' + k + ']"]');
-                        let change_val = $("#batch_change_select").val();
-                            change_target.children().remove();
+                        change_target.children().remove();
                         if (change_val == "既読") {
-                            change_target.append('<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>');
+                            change_target.append(
+                                '<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>'
+                            );
                         }
                         if (change_val == "未読") {
-                            change_target.append('<option value="未読" selected>未読</option><option value="既読">既読</option></select></p></div>');
+                            change_target.append(
+                                '<option value="未読" selected>未読</option><option value="既読">既読</option></select></p></div>'
+                            );
                         }
                     }
+                    alert(min_val + '巻から' + max_val + '巻まで' + change_val + 'に一括変更しました。');
                 }
             }
-        $('#batch_change_button').click(batch_change);
+            $('#batch_change_button').click(batch_change);
         });
     </script>
 @stop

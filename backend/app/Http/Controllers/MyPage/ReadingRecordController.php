@@ -35,11 +35,9 @@ class ReadingRecordController extends Controller
         ->groupBy('book_information.author_name', 'book_information.book_title')
         ->orderBy('reading_records.updated_at', 'desc')
         ->get();
-        
         // echo('<pre>');
         // dd($book_information);
         // echo('</pre>');
-
         // ページで表示するユーザー名を取得
         $users = DB::table('users')
         ->select('name')
@@ -58,6 +56,7 @@ class ReadingRecordController extends Controller
         // echo('<pre>');
         // var_dump($month);
         // echo('<pre>');
+        
         return view('mypage.home', compact('book_information', 'monthly_reading', 'users'));
     }
 }

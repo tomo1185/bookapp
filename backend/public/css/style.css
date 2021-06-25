@@ -84,6 +84,19 @@ canvas {
   border-radius: 0.25rem;
 }
 
+.overflow-auto {
+  max-height: 200px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 15px 15px 0px 15px;
+}
+
+@media (max-width: 575.98px) {
+  #batch_change_button {
+    margin-top: 0.5rem;
+  }
+}
+
 .actions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
