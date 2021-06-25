@@ -17,8 +17,9 @@ class CreateBookInformationTable extends Migration
             $table->id();
             $table->integer('registant_id')->unsigned();
             $table->string('author_name', 30);
-            $table->string('author_name_kana', 30);
+            $table->string('author_name_kana', 60);
             $table->string('book_title', 50);
+            $table->string('book_title_kana', 60);
             $table->text('memo')->nullable();
             $table->boolean('favorite');
             $table->integer('number_of_volumes')->unsigned();

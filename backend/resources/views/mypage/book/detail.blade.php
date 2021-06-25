@@ -34,9 +34,13 @@
                     <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
                     <p>{{ $book_info_data->author_name_kana }}</p>
                 </div>
-                <div class="col-12 form-width">
+                <div class="col-md-6 form-width">
                     <label for="book_title" class="form-label">書籍名</label>
                     <p>{{ $book_info_data->book_title }}</p>
+                </div>
+                <div class="col-md-6 form-width">
+                    <label for="book_title" class="form-label">書籍名(ふりがな)</label>
+                    <p>{{ $book_info_data->book_title_kana }}</p>
                 </div>
                 <div class="col-12 form-width">
                     <label for="memo" class="form-label">メモ</label>

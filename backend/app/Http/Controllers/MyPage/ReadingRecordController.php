@@ -27,7 +27,7 @@ class ReadingRecordController extends Controller
         $login_user = Auth::id();
         $book_information= DB::table('book_information')
         ->join('reading_records', 'book_information.id', '=', 'reading_records.book_title_id')
-        ->select('book_information.author_name', 'book_information.book_title', 'reading_records.updated_at')
+        ->select('book_information.author_name', 'book_information.author_name_kana' ,'book_information.book_title', 'book_information.book_title_kana', 'book_information.favorite',  'reading_records.updated_at')
         // ->select('book_information.author_name', 'book_information.book_title', 'reading_records.updated_at')
         // ->distinct()
         // ->select('book_information.registant_id', 'author_name', 'book_title', 'number_of_volumes', 'my_charts.updated_at')

@@ -26,6 +26,7 @@
     <!-- Chart.js読み込み -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    
     <div>
         <canvas id="myChart"></canvas>
     </div>
@@ -67,7 +68,7 @@
     <div class="recently_read">
         <h5 id="recently-read-book">最近記録した書籍タイトル</h5>
         @php
-            $heads = ['著者', '書籍名', ['label' => '最終更新日', 'width' => 15]];
+            $heads = [['label' => '♡', 'width' => 5], '著者', '著者カナ',  '書籍名','書籍名カナ', ['label' => '最終更新日', 'width' => 15]];
             $config = [
                 'order' => [[2, 'desc']],
             ];
@@ -76,8 +77,15 @@
         <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable bordered compressed :config="$config">
             @foreach ($book_information as $item)
                 <tr>
+                    @if ($item->favorite == 1 )
+                    <td class="favorite"><i class="fas fa-heart"></i></td>
+                    @else
+                        <td class="favorite">-</td>
+                    @endif
                     <td>{{ $item->author_name }}</td>
+                    <td>{{ $item->author_name_kana }}</td>
                     <td>{{ $item->book_title }}</td>
+                    <td>{{ $item->book_title_kana }}</td>
                     <td>{{ $item->updated_at }}</td>
                 </tr>
             @endforeach
@@ -88,4 +96,5 @@
     <link rel="stylesheet" href="/css/style.css">
 @stop
 @section('js')
+<script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
 @stop

@@ -22,14 +22,21 @@
 @section('content')
 
     @php
-    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => 'Actions', 'width' => 10]];
+    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => 'Actions', 'width' => 5]];
     @endphp
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable bordered compressed>
+    <x-adminlte-datatable id="table2" :heads="$heads" head-theme="dark" striped hoverable bordered compressed>
         @foreach ($book_info_data as $item)
             <tr>
+                {{-- @if ($item->favorite == 1 )
+                <td class="favorite"><i class="fas fa-heart"></i></td>
+                @else
+                    <td class="favorite">-</td>
+                @endif --}}
                 <td>{{ $item->author_name }}</td>
+                {{-- <td>{{ $item->author_name_kana }}</td> --}}
                 <td>{{ $item->book_title }}</td>
+                {{-- <td>{{ $item->book_title_kana }}</td> --}}
                 <td>{{ $item->number_of_volumes }}</td>
                 {{-- <td>{{ $item->read_state }}</td> --}}
                 <td class="actions">

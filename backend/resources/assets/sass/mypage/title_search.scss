@@ -3,3 +3,33 @@
     grid-template-columns: repeat(3, 1fr);
     margin: 0 .6rem;
 }
+// #table2 {
+//     // 著者名カナの列を非表示
+//     th:nth-child(2) {
+//         display: none;
+//     }
+//     td:nth-child(2) {
+//         display: none;
+//     }
+//     // 書籍名カナの列を非表示
+//     th:nth-child(4) {
+//         display: none;
+//     }
+//     td:nth-child(4) {
+//         display: none;
+//     }
+
+//     .favorite {
+//         text-align: center;
+//         .fas {
+//             color: red;
+//         }
+//         .far {
+//             color: gray;
+//         }
+
+//         .fa-heart {
+//             font-size: 18px;
+//         }
+//     }
+// }

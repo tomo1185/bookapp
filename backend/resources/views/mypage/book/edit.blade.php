@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-6 form-width">
                     <label for="author_name" class="form-label">著者名</label>
-                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中 太郎" equired
+                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中太郎" equired
                         maxlength="30" value="{{ $book_info_data->author_name }}">
                     <div class="invalid-feedback">
                         入力必須項目です。
@@ -37,16 +37,24 @@
                 </div>
                 <div class="col-md-6 form-width">
                     <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
-                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="30"
-                        placeholder="たなか たろう" required value="{{ $book_info_data->author_name_kana }}">
+                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="60"
+                        placeholder="たなかたろう" required value="{{ $book_info_data->author_name_kana }}">
                     <div class="invalid-feedback">
                         入力必須項目です。
                     </div>
                 </div>
-                <div class="col-12 form-width">
+                <div class="col-md-6 form-width">
                     <label for="book_title" class="form-label">書籍名</label>
                     <input type="text" class="form-control" id="book_title" name="book_title" maxlength="30" required
                         value="{{ $book_info_data->book_title }}">
+                    <div class="invalid-feedback">
+                        入力必須項目です。
+                    </div>
+                </div>
+                <div class="col-md-6 form-width">
+                    <label for="book_title_kana" class="form-label">書籍名(ふりがな)</label>
+                    <input type="text" class="form-control" id="book_title_kana" name="book_title_kana" maxlength="60"
+                     value="{{ $book_info_data->book_title_kana }}" required>
                     <div class="invalid-feedback">
                         入力必須項目です。
                     </div>

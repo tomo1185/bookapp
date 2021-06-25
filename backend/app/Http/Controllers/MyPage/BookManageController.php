@@ -78,6 +78,7 @@ class BookManageController extends Controller
             $book_info->author_name = $request->input('author_name');
             $book_info->author_name_kana = $request->input('author_name_kana');
             $book_info->book_title = $request->input('book_title');
+            $book_info->book_title_kana = $request->input('book_title_kana');
             $book_info->memo = $request->input('memo');
             // dd($request->input('favorite'));
             if ($request->input('favorite') == "1") {
@@ -125,7 +126,7 @@ class BookManageController extends Controller
         $login_user = Auth::id();
         $book_info_data = DB::table('book_information')
             // ->join('reading_records', 'book_information.book_title_id', '=', 'reading_records.book_title_id')
-            ->select('author_name', 'book_title', 'number_of_volumes', 'id')
+            ->select('favorite', 'author_name', 'author_name_kana', 'book_title', 'book_title_kana',  'number_of_volumes', 'id')
             ->where('registant_id', $login_user)
             ->get();
         // dd($book_info_data);
@@ -225,6 +226,7 @@ class BookManageController extends Controller
             $book_info_data->author_name = $request->input('author_name');
             $book_info_data->author_name_kana = $request->input('author_name_kana');
             $book_info_data->book_title = $request->input('book_title');
+            $book_info_data->book_title_kana = $request->input('book_title_kana');
             $book_info_data->memo = $request->input('memo');
             // dd($request->input('favorite'));
             if ($request->input('favorite') == "1") {

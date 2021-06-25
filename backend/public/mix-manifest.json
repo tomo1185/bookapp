@@ -1,17 +1,9 @@
 {
-<<<<<<< HEAD
-    "/assets/build/css/mypage/toppage.css": "/assets/build/css/mypage/toppage.css",
-=======
     "/assets/build/css/toppage.css": "/assets/build/css/toppage.css",
->>>>>>> 作業途中コミット
     "/assets/build/css/mypage/profile_settings.css": "/assets/build/css/mypage/profile_settings.css",
     "/assets/build/css/mypage/title_search.css": "/assets/build/css/mypage/title_search.css",
     "/assets/build/css/mypage/book_register.css": "/assets/build/css/mypage/book_register.css",
     "/assets/build/css/mypage/home.css": "/assets/build/css/mypage/home.css",
     "/css/style.css": "/css/style.css",
-<<<<<<< HEAD
-    "/css/toppage.css": "/css/toppage.css"
-=======
     "/css/top.css": "/css/top.css"
->>>>>>> 作業途中コミット
 }

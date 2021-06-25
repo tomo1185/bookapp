@@ -2,6 +2,31 @@
   padding-left: 0.5rem;
 }
 
+#table1 th:nth-child(3) {
+  display: none;
+}
+#table1 td:nth-child(3) {
+  display: none;
+}
+#table1 th:nth-child(5) {
+  display: none;
+}
+#table1 td:nth-child(5) {
+  display: none;
+}
+#table1 .favorite {
+  text-align: center;
+}
+#table1 .favorite .fas {
+  color: red;
+}
+#table1 .favorite .far {
+  color: gray;
+}
+#table1 .favorite .fa-heart {
+  font-size: 18px;
+}
+
 canvas {
   min-height: 200px;
 }
