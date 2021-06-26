@@ -107,13 +107,29 @@ canvas {
   }
 }
 
-.actions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+#myTable thead {
+  background-color: black;
+  color: #fff;
+}
+#myTable .favorite {
+  text-align: center;
+}
+#myTable .favorite .fa-heart {
+  color: red;
+  font-size: 1.2rem;
+}
+#myTable .actions {
+  text-align: center;
+  display: inline-flexbox;
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+  font-weight: normal;
 }
 
 @media (max-width: 575.98px) {
-  #table2 th, #table2 td {
+  #myTable th,
+#myTable td {
     font-size: 12px;
   }
 }

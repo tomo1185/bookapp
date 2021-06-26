@@ -1,27 +1,27 @@
-.actions {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    // margin: 0 .2rem;
+#myTable {
+    thead {
+        background-color: black;
+        color: #fff;
+    }
+    .favorite {
+        text-align: center;
+        .fa-heart {
+            color: red;
+            font-size: 1.2rem;
+        }
+    }
+    .actions {
+        text-align: center;
+        display: inline-flexbox;
+    }
 }
-#table2 {
-    // 著者名カナの列を非表示
-    // th:nth-child(2) {
-    //     display: none;
-    // }
-    // td:nth-child(2) {
-    //     display: none;
-    // }
-    // // 書籍名カナの列を非表示
-    // th:nth-child(4) {
-    //     display: none;
-    // }
-    // td:nth-child(4) {
-    //     display: none;
-    // }
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: normal;
 }
 @media (max-width: 575.98px) {
-    #table2 {
-        th, td {
+    #myTable {
+        th,
+        td {
             font-size: 12px;
         }
     }

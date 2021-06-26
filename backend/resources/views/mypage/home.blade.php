@@ -21,12 +21,12 @@
     <p id="greeting">{{ $users->name }}さん、おかえりなさい</p>
 
     <!--------------------------------
-     Chart.jsによる読書記録グラフ
-    --------------------------------->
+         Chart.jsによる読書記録グラフ
+        --------------------------------->
     <!-- Chart.js読み込み -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    
+
     <div>
         <canvas id="myChart"></canvas>
     </div>
@@ -63,38 +63,82 @@
                 // }
             }
         });
-
     </script>
     <div class="recently_read">
         <h5 id="recently-read-book">最近記録した書籍タイトル</h5>
-        @php
-            $heads = [['label' => '♡', 'width' => 5], '著者', '著者カナ',  '書籍名','書籍名カナ', ['label' => '最終更新日', 'width' => 15]];
-            $config = [
-                'order' => [[2, 'desc']],
-            ];
-        @endphp
-        {{-- Minimal example / fill data using the component slot --}}
-        <x-adminlte-datatable id="table1" :heads="$heads" head-theme="dark" striped hoverable bordered compressed :config="$config">
-            @foreach ($book_information as $item)
+        <table class="display" id="myTable">
+            <thead>
                 <tr>
-                    @if ($item->favorite == 1 )
-                    <td class="favorite"><i class="fas fa-heart"></i></td>
-                    @else
-                        <td class="favorite">-</td>
-                    @endif
-                    <td>{{ $item->author_name }}</td>
-                    <td>{{ $item->author_name_kana }}</td>
-                    <td>{{ $item->book_title }}</td>
-                    <td>{{ $item->book_title_kana }}</td>
-                    <td>{{ $item->updated_at }}</td>
+                    <th>♡</th>
+                    <th>著者</th>
+                    <th>著者かな</th>
+                    <th>書籍名</th>
+                    <th>書籍名かな</th>
+                    <th>更新日</th>
                 </tr>
-            @endforeach
-        </x-adminlte-datatable>
-    </div> <!-- .recently_read -->
-@stop
-@section('css')
-    <link rel="stylesheet" href="/css/style.css">
-@stop
-@section('js')
-<script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
-@stop
+            </thead>
+            <tbody>
+                @foreach ($book_information as $item)
+                    <tr>
+                        @if ($item->favorite == 1)
+                            <td class="favorite"><i class="fas fa-heart"></i></td>
+                        @else
+                            <td class="favorite">-</td>
+                        @endif
+                        <td>{{ $item->author_name }}</td>
+                        <td>{{ $item->author_name_kana }}</td>
+                        <td>{{ $item->book_title }}</td>
+                        <td>{{ $item->book_title_kana }}</td>
+                        <td>{{ $item->updated_at }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @stop
+    @section('css')
+        <link rel="stylesheet" href="/css/style.css">
+        {{-- データテーブル --}}
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    @stop
+    @section('js')
+        <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script>
+            jQuery(function() {
+                function DataTableRead() {
+                    $('#myTable').DataTable({
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Japanese.json",
+                        },
+                        "order": [
+                            [5, "desc"]
+                        ],
+                        'autoWidth': false,
+                        'columnDefs': [{
+                                targets: 0,
+                                width: "10%"
+                            },
+                            {
+                                targets: 1,
+                                width: "30%"
+                            },
+                            {
+                                targets: 3,
+                                width: "45%"
+                            },
+                            {
+                                targets: 5,
+                                width: "15%"
+                            },
+                            {
+                                'visible': false,
+                                'targets': [2, 4]
+                            },
+                        ],
+                    });
+                }
+                $(document).ready(DataTableRead);
+            });
+        </script>
+
+        <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
+    @stop
