@@ -21,9 +21,16 @@
 
 @section('content')
 
+    {{-- @php
+    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'width' => 5]];
+    @endphp --}}
     @php
-    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => 'Actions', 'width' => 5]];
-    @endphp
+    $heads = ['著者',  '書籍名', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'no-export' => true, 'width' => 4]];
+    // $heads = ['著者', '著者カナ',  '書籍名','書籍名カナ', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'no-export' => true, 'width' => 4]];
+    $config = [
+        'order' => [[2, 'desc']],
+    ];
+@endphp
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table2" :heads="$heads" head-theme="dark" striped hoverable bordered compressed>
         @foreach ($book_info_data as $item)
@@ -38,7 +45,6 @@
                 <td>{{ $item->book_title }}</td>
                 {{-- <td>{{ $item->book_title_kana }}</td> --}}
                 <td>{{ $item->number_of_volumes }}</td>
-                {{-- <td>{{ $item->read_state }}</td> --}}
                 <td class="actions">
                     <a href="{{ route('book_manage.edit',['id' => $item->id]) }}"><button type="button" class="btn btn-xs btn-default text-primary shadow" title="Edit">
                         <i class="fa fa-lg fa-fw fa-pen"></i>
@@ -48,9 +54,12 @@
                     </button></a>
                     <form method="POST" action="{{ route('book_manage.destroy',['id' => $item->id]) }}">
                     @csrf
-                    <a href="#"><button class="btn btn-xs btn-default text-danger shadow" title="destroy">
+                    <a href="#"><button class="btn btn-xs btn-default text-danger shadow delete-book-title" title="destroy">
                         <i class="fa fa-lg fa-fw fa-trash-alt"></i>
                     </button></a>
+                    {{-- <a href="#"><button class="btn btn-xs btn-default text-danger shadow delete-book-title" title="destroy">
+                        <i class="fa fa-lg fa-fw fa-trash-alt"></i>
+                    </button></a> --}}
                     </form>
                 </td>
             </tr>
@@ -68,6 +77,18 @@
 @stop
 
 @section('js')
-    <script>
+
+<script>
+    /*---------------------------------
+    Check before deleting
+    ----------------------------------*/
+    
+    $('.delete-book-title').click(function() {
+        if (confirm("本当に削除しますか？")) {
+        } else {
+            return false;
+        }
+    });
+
     </script>
 @stop

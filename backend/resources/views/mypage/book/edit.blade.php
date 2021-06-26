@@ -289,5 +289,18 @@
             }
             $('#batch_change_button').click(batch_change);
         });
+        /*---------------------------------
+        // 名前自動入力
+        ----------------------------------*/
+        $(document).ready(
+            function () {
+                $.fn.autoKana('#author_name', '#author_name_kana', {
+                    katakana: false //true：カタカナ、false：ひらがな（デフォルト）
+                });
+                $.fn.autoKana('#book_title', '#book_title_kana', {
+                    katakana: false
+                });
+            });
     </script>
+    <script src="{{ asset('/js/jquery.autoKana.js') }}"></script>
 @stop

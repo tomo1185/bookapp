@@ -93,7 +93,7 @@
                     </select>
                     <button type="button" class="btn btn-primary" id="batch_change_button" disabled>一括変更</button>
                 </div>
-                <div class="overflow-auto">
+                <div class="overflow-auto" >
                     <div class="row" id="input_progress" class="ml-3">
                         <p>全巻数を入力後、「反映する」ボタンを押してください。</p>
                         {{-- ここに読書の読書状況を入力するフォームが出力される --}}
@@ -268,5 +268,20 @@
             }
         $('#batch_change_button').click(batch_change);
         });
+
+
+    /*---------------------------------
+    // 名前自動入力
+    ----------------------------------*/
+    $(document).ready(
+        function () {
+            $.fn.autoKana('#author_name', '#author_name_kana', {
+                katakana: false //true：カタカナ、false：ひらがな（デフォルト）
+            });
+            $.fn.autoKana('#book_title', '#book_title_kana', {
+                katakana: false
+            });
+        });
     </script>
+    <script src="{{ asset('/js/jquery.autoKana.js') }}"></script>
 @stop

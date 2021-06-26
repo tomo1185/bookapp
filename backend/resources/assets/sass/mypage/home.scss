@@ -19,6 +19,8 @@
         display: none;
     }
 
+    
+
     .favorite {
         text-align: center;
         .fas {
@@ -44,5 +46,13 @@ canvas {
     #recently-read-book {
         margin-top: 2rem;
         padding-left: 0.2rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    #table1 {
+        th, td {
+            font-size: 12px;
+        }
     }
 }

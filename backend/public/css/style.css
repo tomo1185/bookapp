@@ -39,6 +39,12 @@ canvas {
   padding-left: 0.2rem;
 }
 
+@media (max-width: 575.98px) {
+  #table1 th, #table1 td {
+    font-size: 12px;
+  }
+}
+
 .needs-validation {
   max-width: 600px;
   margin: 0 auto;
@@ -95,12 +101,21 @@ canvas {
   #batch_change_button {
     margin-top: 0.5rem;
   }
+
+  .overflow-auto {
+    max-height: 100px;
+  }
 }
 
 .actions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 0 0.6rem;
+}
+
+@media (max-width: 575.98px) {
+  #table2 th, #table2 td {
+    font-size: 12px;
+  }
 }
 
 .img-screen {

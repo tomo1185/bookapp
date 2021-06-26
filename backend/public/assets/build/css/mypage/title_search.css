@@ -1,5 +1,10 @@
 .actions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 0 0.6rem;
+}
+
+@media (max-width: 575.98px) {
+  #table2 th, #table2 td {
+    font-size: 12px;
+  }
 }
