@@ -20,75 +20,97 @@
 @stop
 
 @section('content')
-
-    {{-- @php
-    $heads = ['著者', '書籍名', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'width' => 5]];
-    @endphp --}}
-    @php
-    $heads = ['著者',  '書籍名', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'no-export' => true, 'width' => 4]];
-    // $heads = ['著者', '著者カナ',  '書籍名','書籍名カナ', ['label' => '巻数', 'width' => 5], ['label' => '操作', 'no-export' => true, 'width' => 4]];
-    $config = [
-        'order' => [[2, 'desc']],
-    ];
-@endphp
-    {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table2" :heads="$heads" head-theme="dark" striped hoverable bordered compressed>
-        @foreach ($book_info_data as $item)
+    <table class="display" id="myTable">
+        <thead>
             <tr>
-                {{-- @if ($item->favorite == 1 )
-                <td class="favorite"><i class="fas fa-heart"></i></td>
-                @else
-                    <td class="favorite">-</td>
-                @endif --}}
-                <td>{{ $item->author_name }}</td>
-                {{-- <td>{{ $item->author_name_kana }}</td> --}}
-                <td>{{ $item->book_title }}</td>
-                {{-- <td>{{ $item->book_title_kana }}</td> --}}
-                <td>{{ $item->number_of_volumes }}</td>
-                <td class="actions">
-                    <a href="{{ route('book_manage.edit',['id' => $item->id]) }}"><button type="button" class="btn btn-xs btn-default text-primary shadow" title="Edit">
-                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                    </button></a>
-                    <a href="{{ route('book_manage.detail',['id' => $item->id]) }}"><button class="btn btn-xs btn-default text-teal shadow" title="Detail">
-                        <i class="fa fa-lg fa-fw fa-eye"></i>
-                    </button></a>
-                    <form method="POST" action="{{ route('book_manage.destroy',['id' => $item->id]) }}">
-                    @csrf
-                    <a href="#"><button class="btn btn-xs btn-default text-danger shadow delete-book-title" title="destroy">
-                        <i class="fa fa-lg fa-fw fa-trash-alt"></i>
-                    </button></a>
-                    {{-- <a href="#"><button class="btn btn-xs btn-default text-danger shadow delete-book-title" title="destroy">
-                        <i class="fa fa-lg fa-fw fa-trash-alt"></i>
-                    </button></a> --}}
-                    </form>
-                </td>
+                <th>♡</th>
+                <th>著者</th>
+                <th>著者かな</th>
+                <th>書籍名</th>
+                <th>書籍名かな</th>
+                <th>編集</th>
             </tr>
-        @endforeach
-    </x-adminlte-datatable>
-    {{-- @foreach ($config['data'] as $row) <tr>
-                @foreach ($row as $cell)
-                    <td>{!! $cell !!}</td> @endforeach
-            </tr>
-        @endforeach --}}
+        </thead>
+        <tbody>
+            @foreach ($book_info_data as $item)
+                <tr>
+                    @if ($item->favorite == 1)
+                        <td class="favorite"><i class="fas fa-heart"></i></td>
+                    @else
+                        <td class="favorite">-</td>
+                    @endif
+                    <td>{{ $item->author_name }}</td>
+                    <td>{{ $item->author_name_kana }}</td>
+                    <td>{{ $item->book_title }}</td>
+                    <td>{{ $item->book_title_kana }}</td>
+                    <td class="actions">
+                        <a href="{{ route('book_manage.edit', ['id' => $item->id]) }}"><button type="button"
+                                class="btn btn-xs btn-default text-primary shadow" title="Edit">
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                            </button></a>
+                        <form method="POST" action="{{ route('book_manage.destroy', ['id' => $item->id]) }}">
+                            @csrf
+                            <button class="btn btn-xs btn-default text-danger shadow delete-book-title" title="destroy">
+                                <i class="fa fa-lg fa-fw fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @stop
-
 @section('css')
     <link rel="stylesheet" href="/css/style.css">
+    {{-- データテーブル --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 @stop
 
 @section('js')
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script>
+        jQuery(function() {
+            function DataTableRead() {
+                $('#myTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Japanese.json",
+                    },
+                    "order": [
+                        [2, "asc"]
+                    ],
+                    'autoWidth': false,
+                    'columnDefs': [{
+                            targets: 0,
+                            width: "10%"
+                        },
+                        {
+                            targets: 1,
+                            width: "30%"
+                        },
+                        {
+                            targets: 3,
+                            width: "50%"
+                        },
+                        {
+                            targets: 5,
+                            width: "10%"
+                        },
+                        { 'visible': false, 'targets': [2,4] },
+                    ],
+                });
+            }
+            $(document).ready(DataTableRead);
+        });
+    </script>
+    <script>
+        /*---------------------------------
+        Check before deleting
+        ----------------------------------*/
 
-<script>
-    /*---------------------------------
-    Check before deleting
-    ----------------------------------*/
-    
-    $('.delete-book-title').click(function() {
-        if (confirm("本当に削除しますか？")) {
-        } else {
-            return false;
-        }
-    });
-
+        $('.delete-book-title').click(function() {
+            if (confirm("本当に削除しますか？")) {} else {
+                return false;
+            }
+        });
     </script>
 @stop
