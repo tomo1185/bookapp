@@ -21,7 +21,7 @@
 
 @section('content')
     <div class="container">
-        <div class="profile-input-wrapper">
+        <div class="form-wrapper">
             {{-- <div class="row"> --}}
                 <form method="POST" action="{{ route('mypage.profile.update', ['id' => $users->id]) }}" enctype="multipart/form-data" class="g-3 needs-validation" novalidate>
                     @csrf

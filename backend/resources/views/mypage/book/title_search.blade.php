@@ -20,14 +20,13 @@
 @stop
 
 @section('content')
+<div class="table-wrapper">
     <table class="display" id="myTable">
         <thead>
             <tr>
                 <th>♡</th>
                 <th>著者</th>
-                <th>著者かな</th>
                 <th>書籍名</th>
-                <th>書籍名かな</th>
                 <th>編集</th>
             </tr>
         </thead>
@@ -39,10 +38,8 @@
                     @else
                         <td class="favorite">-</td>
                     @endif
-                    <td>{{ $item->author_name }}</td>
-                    <td>{{ $item->author_name_kana }}</td>
-                    <td>{{ $item->book_title }}</td>
-                    <td>{{ $item->book_title_kana }}</td>
+                    <td><p style="display:none;">{{ $item->author_name_kana }}</p><p style="margin:0;">{{ $item->author_name }}</p></td>
+                    <td><p style="display:none;">{{ $item->book_title_kana }}</p><p style="margin:0;">{{ $item->book_title }}</p></td>
                     <td class="actions">
                         <a href="{{ route('book_manage.edit', ['id' => $item->id]) }}"><button type="button"
                                 class="btn btn-xs btn-default text-primary shadow" title="Edit">
@@ -59,6 +56,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/style.css">
@@ -88,14 +86,14 @@
                             width: "30%"
                         },
                         {
-                            targets: 3,
+                            targets: 2,
                             width: "50%"
                         },
                         {
-                            targets: 5,
+                            targets: 3,
                             width: "10%"
                         },
-                        { 'visible': false, 'targets': [2,4] },
+                        // { 'visible': false, 'targets': [2,4] },
                     ],
                 });
             }

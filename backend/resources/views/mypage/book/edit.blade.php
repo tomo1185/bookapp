@@ -22,6 +22,7 @@
 
 @section('content')
     <div class="container">
+        <div class="form-wrapper">
         {{-- <form method="POST" class="g-3 needs-validation" novalidate> --}}
         <form method="POST" action="{{ route('book_manage.update', ['id' => $book_info_data->id]) }}"
             class="g-3 needs-validation" novalidate>
@@ -67,16 +68,23 @@
                         500字以内で入力してください。
                     </div>
                 </div>
-            </div>
-            <div class="form-check">
-                @if ($book_info_data->favorite == 1)
-                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="favorite" checked>
-                @else
-                    <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
-                @endif
-                <label class="form-check-label" for="flexCheckDefault">
-                    お気に入りに追加
-                </label>
+                <div class="col-12 form-width">
+                    <label for="favorite" class="form-label">お気に入り登録</label>
+                    <div class="form-check my-0">
+                        @if ($book_info_data->favorite == 1)
+                            <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="favorite"
+                                checked>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                登録中
+                            </label>
+                        @else
+                            <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                未登録
+                            </label>
+                        @endif
+                    </div>
+                </div>
             </div>
             <div class="form-width" id="number_of_volumes_form">
                 <label for="number_of_volumes" class="form-label">全巻数</label>
@@ -117,10 +125,11 @@
                         {{-- ここに読書の読書状況を入力するフォームが出力される --}}
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2" id="register_submit">送信</button>
+                <button type="submit" class="btn btn-primary mt-2" id="register_submit">変更する</button>
             </div>
         </form>
-    </div>
+    </div> <!-- form-wrapper -->
+</div>
 @stop
 
 @section('css')
@@ -146,8 +155,7 @@
                             event.preventDefault()
                             event.stopPropagation()
                         }
-
-                        form.classList.add('was-validated')
+                        form.classList.add('was-validated');
                     }, false)
                 })
         })()
@@ -158,10 +166,10 @@
         let favorite = $('input[name="favorite"]');
         favorite.change(function() {
             if (favorite.prop('checked')) {
-                // alert("チェックしました");
+                favorite.next('label').text("登録する");
                 favorite.val("1");
             } else {
-                // alert("チェックを外しました");
+                favorite.next('label').text("登録しない");
                 favorite.val("0");
             }
         });
@@ -293,7 +301,7 @@
         // 名前自動入力
         ----------------------------------*/
         $(document).ready(
-            function () {
+            function() {
                 $.fn.autoKana('#author_name', '#author_name_kana', {
                     katakana: false //true：カタカナ、false：ひらがな（デフォルト）
                 });
