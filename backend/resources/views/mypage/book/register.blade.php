@@ -21,86 +21,91 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="{{ route('book_manage.store') }}" class="g-3 needs-validation" novalidate>
-            @csrf
-            <div class="row">
-                <div class="col-md-6 form-width">
-                    <label for="author_name" class="form-label">著者名</label>
-                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中太郎"
-                        maxlength="30" required>
-                    <div class="invalid-feedback">
-                        入力必須項目です
-                    </div>
-                </div>
-                <div class="col-md-6 form-width">
-                    <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
-                    <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="60"
-                        placeholder="たなかたろう" required>
-                    <div class="invalid-feedback">
-                        入力必須項目です。
-                    </div>
-                </div>
-                <div class="col-md-6 form-width">
-                    <label for="book_title" class="form-label">書籍名</label>
-                    <input type="text" class="form-control" id="book_title" name="book_title" maxlength="30" required>
-                    <div class="invalid-feedback">
-                        入力必須項目です。
-                    </div>
-                </div>
-                <div class="col-md-6 form-width">
-                    <label for="book_title_kana" class="form-label">書籍名(ふりがな)</label>
-                    <input type="text" class="form-control" id="book_title_kana" name="book_title_kana" maxlength="60"
-                     required>
-                    <div class="invalid-feedback">
-                        入力必須項目です。
-                    </div>
-                </div>
-                <div class="col-12 form-width">
-                    <label for="memo" class="form-label">メモ</label>
-                    <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500" wrap="hard"></textarea>
-                    <div class="invalid-feedback">
-                        500字以内で入力してください。
-                    </div>
-                </div>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
-                <label class="form-check-label" for="flexCheckDefault">
-                    お気に入りに追加
-                </label>
-            </div>
-            <div class="form-width" id="number_of_volumes_form">
-                <label for="number_of_volumes" class="form-label">全巻数</label>
+        <div class="form-wrapper">      
+            <form method="POST" action="{{ route('book_manage.store') }}" class="g-3 needs-validation" novalidate>
+                @csrf
                 <div class="row">
-                    <input type="number" class="form-control" min="1" max="500" id="number_of_volumes"
-                        name="number_of_volumes" required>
-                    <button type="button" class="btn btn-primary" id="refrect_button">反映する</button>
-                    <div class="invalid-feedback">
-                        入力必須項目です。1~500の整数を入力してください。
+                    <div class="col-md-6 form-width">
+                        <label for="author_name" class="form-label">著者名</label>
+                        <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中太郎"
+                            maxlength="30" required>
+                        <div class="invalid-feedback">
+                            入力必須項目です
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-width">
+                        <label for="author_name_kana" class="form-label">著者名(ふりがな)</label>
+                        <input type="text" class="form-control" id="author_name_kana" name="author_name_kana" maxlength="60"
+                            placeholder="たなかたろう" required>
+                        <div class="invalid-feedback">
+                            入力必須項目です。
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-width">
+                        <label for="book_title" class="form-label">書籍名</label>
+                        <input type="text" class="form-control" id="book_title" name="book_title" maxlength="30" required>
+                        <div class="invalid-feedback">
+                            入力必須項目です。
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-width">
+                        <label for="book_title_kana" class="form-label">書籍名(ふりがな)</label>
+                        <input type="text" class="form-control" id="book_title_kana" name="book_title_kana" maxlength="60"
+                            required>
+                        <div class="invalid-feedback">
+                            入力必須項目です。
+                        </div>
+                    </div>
+                    <div class="col-12 form-width">
+                        <label for="memo" class="form-label">メモ</label>
+                        <textarea class="form-control" id="memo" rows="5" name="memo" maxlength="500" wrap="hard"></textarea>
+                        <div class="invalid-feedback">
+                            500字以内で入力してください。
+                        </div>
+                    </div>
+                    <div class="col-12 form-width">
+                        <label for="favorite" class="form-label">お気に入り登録</label>
+                        <div class="form-check my-0">
+                            <input class="form-check-input" type="checkbox" value="0" id="flexCheckDefault" name="favorite">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                登録しない
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-width">
-                <label for="progress" class="form-label">読書状況</label>
-                <div class="row" id="batch_change">
-                    <input type="number" id="batch_change_min" min="1" max="500">
-                    <p>&nbsp;巻から&nbsp;</p>
-                    <input type="number" id="batch_change_max" min="1" max="500">
-                    <p>&nbsp;巻まで&nbsp;</p>
-                    <select id = "batch_change_select">
-                        <option value="既読">既読</option>
-                        <option value="未読">未読</option>
-                    </select>
-                    <button type="button" class="btn btn-primary" id="batch_change_button" disabled>一括変更</button>
-                </div>
-                <div class="overflow-auto" >
-                    <div class="row" id="input_progress" class="ml-3">
-                        <p>全巻数を入力後、「反映する」ボタンを押してください。</p>
-                        {{-- ここに読書の読書状況を入力するフォームが出力される --}}
+                <div class="form-width" id="number_of_volumes_form">
+                    <label for="number_of_volumes" class="form-label">全巻数</label>
+                    <div class="row">
+                        <input type="number" class="form-control" min="1" max="500" id="number_of_volumes"
+                            name="number_of_volumes" required>
+                        <button type="button" class="btn btn-primary" id="refrect_button">反映する</button>
+                        <div class="invalid-feedback">
+                            入力必須項目です。1~500の整数を入力してください。
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2" id="register_submit" disabled>送信</button>
-        </form>
+                <div class="form-width">
+                    <label for="progress" class="form-label">読書状況</label>
+                    <div class="row" id="batch_change">
+                        <input type="number" id="batch_change_min" min="1" max="500">
+                        <p>&nbsp;巻から&nbsp;</p>
+                        <input type="number" id="batch_change_max" min="1" max="500">
+                        <p>&nbsp;巻まで&nbsp;</p>
+                        <select id="batch_change_select">
+                            <option value="既読">既読</option>
+                            <option value="未読">未読</option>
+                        </select>
+                        <button type="button" class="btn btn-primary" id="batch_change_button" disabled>一括変更</button>
+                    </div>
+                    <div class="overflow-auto">
+                        <div class="row" id="input_progress" class="ml-3">
+                            <p>全巻数を入力後、「反映する」ボタンを押してください。</p>
+                            {{-- ここに読書の読書状況を入力するフォームが出力される --}}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" id="register_submit" disabled>登録する</button>
+            </form>
+        </div> <!-- form-wrapper -->
     </div>
 @stop
 
@@ -127,6 +132,7 @@
                         if (!form.checkValidity()) {
                             event.preventDefault()
                             event.stopPropagation()
+                        } else {
                         }
 
                         form.classList.add('was-validated')
@@ -140,19 +146,21 @@
         let favorite = $('input[name="favorite"]');
         favorite.change(function() {
             if (favorite.prop('checked')) {
+                favorite.next('label').text("登録する");
                 favorite.val("1");
                 // change_target.append('<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>');
                 // alert("チェックしました" + favorite.val());
             } else {
+                favorite.next('label').text("登録しない");
                 favorite.val("0");
                 // alert("チェックを外しました" + favorite.val());
             }
         });
-        
+
         /*---------------------------------
          書籍の全巻数を入力後、反映ボタンを押すまで、
          一括変更ボタンと送信ボタンが押せなくなる
-        ----------------------------------*/      
+        ----------------------------------*/
         jQuery(function() {
             function some_handler() {
                 // 送信ボタン
@@ -165,7 +173,7 @@
             // 入力値が変更された時にイベント発生
             $('#number_of_volumes').change(some_handler);
         });
-        
+
         /*---------------------------------
          書籍の全巻数を入力後に反映ボタンを押すと、
          各巻数の読書の読書状況を入力するフォームを出す
@@ -229,7 +237,7 @@
                 let common = [min_val, max_val, num_of_val]; //上記変数を共通チェック処理で使用
                 let valmax = 500; // 入力数値の上限値
                 let = change_flg = 1; //値の一括変更フラグ 1:変更する 0:変更しない
-                let change_val = $("#batch_change_select").val(); 
+                let change_val = $("#batch_change_select").val();
                 // 2. 値のチェック処理(共通)
                 for (let j = 0; j < 3; j++) {
                     if (common[j] < 1 || valmax < common[j] || common[j] == "") {
@@ -238,11 +246,11 @@
                         break;
                     }
                 }
-                        console.log("change_flg="+ change_flg);
-                        console.log("min_val="+ min_val);
-                        console.log("max_val="+ max_val);
-                        console.log("num_of_val="+ num_of_val);
-                        
+                console.log("change_flg=" + change_flg);
+                console.log("min_val=" + min_val);
+                console.log("max_val=" + max_val);
+                console.log("num_of_val=" + num_of_val);
+
                 if (change_flg == 1) {
                     if (min_val > max_val || max_val > num_of_val) {
                         alert("入力値が不正です。値を確認してください。");
@@ -254,34 +262,38 @@
                 if (change_flg == 1) {
                     for (let k = min_val; k <= max_val; k++) {
 
-                        let change_target = $('select[name="read_state[' + k + ']"]');           
-                            change_target.children().remove();
+                        let change_target = $('select[name="read_state[' + k + ']"]');
+                        change_target.children().remove();
                         if (change_val == "既読") {
-                            change_target.append('<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>');
+                            change_target.append(
+                                '<option value="未読">未読</option><option value="既読" selected>既読</option></select></p></div>'
+                            );
                         }
                         if (change_val == "未読") {
-                            change_target.append('<option value="未読" selected>未読</option><option value="既読">既読</option></select></p></div>');
+                            change_target.append(
+                                '<option value="未読" selected>未読</option><option value="既読">既読</option></select></p></div>'
+                            );
                         }
                     }
-                    alert(min_val + '巻から'+ max_val+ '巻まで' + change_val + 'に一括変更しました。');
+                    alert(min_val + '巻から' + max_val + '巻まで' + change_val + 'に一括変更しました。');
                 }
             }
-        $('#batch_change_button').click(batch_change);
+            $('#batch_change_button').click(batch_change);
         });
 
 
-    /*---------------------------------
-    // 名前自動入力
-    ----------------------------------*/
-    $(document).ready(
-        function () {
-            $.fn.autoKana('#author_name', '#author_name_kana', {
-                katakana: false //true：カタカナ、false：ひらがな（デフォルト）
+        /*---------------------------------
+        // 名前自動入力
+        ----------------------------------*/
+        $(document).ready(
+            function() {
+                $.fn.autoKana('#author_name', '#author_name_kana', {
+                    katakana: false //true：カタカナ、false：ひらがな（デフォルト）
+                });
+                $.fn.autoKana('#book_title', '#book_title_kana', {
+                    katakana: false
+                });
             });
-            $.fn.autoKana('#book_title', '#book_title_kana', {
-                katakana: false
-            });
-        });
     </script>
     <script src="{{ asset('/js/jquery.autoKana.js') }}"></script>
 @stop

@@ -21,12 +21,12 @@
     <p id="greeting">{{ $users->name }}さん、おかえりなさい</p>
 
     <!--------------------------------
-         Chart.jsによる読書記録グラフ
-        --------------------------------->
+     Chart.jsによる読書記録グラフ
+    --------------------------------->
     <!-- Chart.js読み込み -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-
+    
     <div>
         <canvas id="myChart"></canvas>
     </div>
@@ -63,82 +63,79 @@
                 // }
             }
         });
+
     </script>
     <div class="recently_read">
         <h5 id="recently-read-book">最近記録した書籍タイトル</h5>
-        <table class="display" id="myTable">
-            <thead>
-                <tr>
-                    <th>♡</th>
-                    <th>著者</th>
-                    <th>著者かな</th>
-                    <th>書籍名</th>
-                    <th>書籍名かな</th>
-                    <th>更新日</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($book_information as $item)
+        <div class="table-wrapper">
+            <table class="display" id="myTable">
+                <thead>
                     <tr>
-                        @if ($item->favorite == 1)
-                            <td class="favorite"><i class="fas fa-heart"></i></td>
-                        @else
-                            <td class="favorite">-</td>
-                        @endif
-                        <td>{{ $item->author_name }}</td>
-                        <td>{{ $item->author_name_kana }}</td>
-                        <td>{{ $item->book_title }}</td>
-                        <td>{{ $item->book_title_kana }}</td>
-                        <td>{{ $item->updated_at }}</td>
+                        <th>♡</th>
+                        <th>著者</th>
+                        <th>書籍名</th>
+                        <th>更新日</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @stop
-    @section('css')
-        <link rel="stylesheet" href="/css/style.css">
+                </thead>
+                <tbody>
+                    @foreach ($book_information as $item)
+                        <tr>
+                            @if ($item->favorite == 1)
+                                <td class="favorite"><i class="fas fa-heart"></i></td>
+                            @else
+                                <td class="favorite">-</td>
+                            @endif
+                            <td><p style="display:none;">{{ $item->author_name_kana }}</p><p style="margin:0;">{{ $item->author_name }}</p></td>
+                            <td><p style="display:none;">{{ $item->book_title_kana }}</p><p style="margin:0;">{{ $item->book_title }}</p></td>
+                            <td>{{ $item->updated_at }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div> <!-- .table-wrapper -->
+    </div>
+@stop
+@section('css')
+    <link rel="stylesheet" href="/css/style.css">
         {{-- データテーブル --}}
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-    @stop
-    @section('js')
-        <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script>
-            jQuery(function() {
-                function DataTableRead() {
-                    $('#myTable').DataTable({
-                        "language": {
-                            "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Japanese.json",
-                        },
-                        "order": [
-                            [5, "desc"]
-                        ],
-                        'autoWidth': false,
-                        'columnDefs': [{
-                                targets: 0,
-                                width: "10%"
-                            },
-                            {
-                                targets: 1,
-                                width: "30%"
-                            },
-                            {
-                                targets: 3,
-                                width: "45%"
-                            },
-                            {
-                                targets: 5,
-                                width: "15%"
-                            },
-                            {
-                                'visible': false,
-                                'targets': [2, 4]
-                            },
-                        ],
-                    });
-                }
-                $(document).ready(DataTableRead);
+@stop
+@section('js')
+<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script>
+    jQuery(function() {
+        function DataTableRead() {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Japanese.json",
+                },
+                "order": [
+                    [3, "desc"]
+                ],
+                'autoWidth': false,
+                'columnDefs': [{
+                        targets: 0,
+                        width: "10%"
+                    },
+                    {
+                        targets: 1,
+                        width: "30%"
+                    },
+                    {
+                        targets: 2,
+                        width: "45%"
+                    },
+                    {
+                        targets: 3,
+                        width: "15%"
+                    },
+                    // { 'visible': false, 'targets': [2,4] },
+                ],
             });
-        </script>
+        }
+        $(document).ready(DataTableRead);
+    });
+</script>
 
-        <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
-    @stop
+<script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
+@stop

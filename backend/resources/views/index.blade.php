@@ -6,7 +6,7 @@
     <title>読書記録APP</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="ポートフォリオ用に制作した読書アプリです">
-    <link rel="icon" type="image/png" href="{{ asset('#') }}">
+    <link rel="icon" type="image/png" href="{{ url('/favicons/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
     <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->

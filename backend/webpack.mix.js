@@ -16,6 +16,7 @@ const mix = require('laravel-mix');
 mix
     // ビルドしたsassをそれぞれ開発側buildディレクトリへ出力
     // .sass('resources/assets/sass/home.scss', '../resources/assets/build/css/')
+    .sass('resources/assets/sass/mypage/common.scss', 'assets/build/css/mypage/')
     .sass('resources/assets/sass/mypage/home.scss', 'assets/build/css/mypage/')
     .sass('resources/assets/sass/mypage/book_register.scss', 'assets/build/css/mypage/')
     .sass('resources/assets/sass/mypage/title_search.scss', 'assets/build/css/mypage/')
@@ -24,6 +25,7 @@ mix
     // buildディレクトリに出力したcssファイルを、toppage.cssというファイルに１つにまとめてpublicディレクトリへ出力する
     .styles(
         [
+            'public/assets/build/css/mypage/common.css',
             'public/assets/build/css/mypage/home.css',
             'public/assets/build/css/mypage/book_register.css',
             'public/assets/build/css/mypage/title_search.css',
