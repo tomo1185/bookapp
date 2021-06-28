@@ -54,6 +54,10 @@ class ProfileSettingsController extends Controller
     public function update(Request $request, $id)
     {
         $users = User::find($id);
+        $login_user = Auth::id();
+        if ($login_user != $users->id) {
+            return abort('404');
+        }
         Validator::make($request->all(), [
             'email' => [
                 'required',

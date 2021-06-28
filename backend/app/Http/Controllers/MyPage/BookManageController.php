@@ -162,9 +162,11 @@ class BookManageController extends Controller
         //     ->select('id', 'author_name', 'author_name_kana', 'book_title', 'number_of_volumes')
         //     ->where('id', $id)
         //     ->first();
-
+        $login_user = Auth::id();
         $book_info_data = BookInformation::find($id);
-        // dd($book_info_data);
+        if ($login_user != $book_info_data->registant_id) {
+            return abort('404');
+        }
 
         $reading_record_data = DB::table('reading_records')
             ->select('id', 'book_volume', 'read_state', 'book_title_id')
@@ -186,6 +188,9 @@ class BookManageController extends Controller
         // 1.前処理
         $login_user = Auth::id();
         $book_info_data = BookInformation::find($id);
+        if ($login_user != $book_info_data->registant_id) {
+            return abort('404');
+        }
         $bf_number_of_volumes = $book_info_data->number_of_volumes;
         $read_book_counter = 0;  // 読書数をカウントする変数
         $reading_records = DB::table('reading_records')
@@ -351,7 +356,12 @@ class BookManageController extends Controller
      */
     public function destroy($id)
     {
+        $login_user = Auth::id();
         $book_info_data = BookInformation::find($id);
+        if ($login_user != $book_info_data->registant_id) {
+            return abort('404');
+        }
+
         $aaa = DB::table('reading_records')
         ->where('book_title_id', $id)
         ->delete();
