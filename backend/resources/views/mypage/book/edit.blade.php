@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-6 form-width">
                     <label for="author_name" class="form-label">著者名</label>
-                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中太郎" equired
+                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="田中太郎" required
                         maxlength="30" value="{{ $book_info_data->author_name }}">
                     <div class="invalid-feedback">
                         入力必須項目です。

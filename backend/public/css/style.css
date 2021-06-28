@@ -139,10 +139,6 @@ label:not(.form-check-label):not(.custom-file-label) {
   }
 }
 
-.profile-input-wrapper {
-  padding-bottom: 1rem;
-}
-
 .img-screen {
   display: inline-block;
   max-width: 600px;

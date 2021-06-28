@@ -37,6 +37,8 @@
         <div class="home-content wrapper">
             {{-- <h2 class="page-title">We'll Make Your Day</h2> --}}
             <p>ポートフォリオ用に制作した<br>読書アプリです</p>
+            <h3 style="margin-bottom:0;">読書記録APP紹介動画</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/smkp4FPb_f0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             {{-- <a class="button" href="{{ route('login') }}">ログイン</a> --}}
         </div>
         <!--/.home-content -->
