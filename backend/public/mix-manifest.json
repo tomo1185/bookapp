@@ -1,10 +1,14 @@
 {
-    "/assets/build/css/toppage.css": "/assets/build/css/toppage.css",
+    "/js/bookform.js": "/js/bookform.js",
+    "/js/datatables.js": "/js/datatables.js",
+    "/js/title-search-datatables.js": "/js/title-search-datatables.js",
+    "/js/profile-validation.js": "/js/profile-validation.js",
     "/assets/build/css/mypage/profile_settings.css": "/assets/build/css/mypage/profile_settings.css",
     "/assets/build/css/mypage/title_search.css": "/assets/build/css/mypage/title_search.css",
     "/assets/build/css/mypage/book_register.css": "/assets/build/css/mypage/book_register.css",
     "/assets/build/css/mypage/home.css": "/assets/build/css/mypage/home.css",
     "/assets/build/css/mypage/common.css": "/assets/build/css/mypage/common.css",
+    "/assets/build/css/toppage.css": "/assets/build/css/toppage.css",
     "/css/style.css": "/css/style.css",
     "/css/top.css": "/css/top.css"
 }

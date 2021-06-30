@@ -44,3 +44,17 @@ mix
         ],
         'public/css/top.css'
     )
+
+mix
+    .js(
+        [
+            'public/assets/build/js/mypage/book/form/batch-change-volumes.js',
+            'public/assets/build/js/mypage/book/form/favorite-add-check.js',
+            'public/assets/build/js/mypage/bootstrap-form-validation.js',
+        ],
+        'public/js/bookform.js'
+        )
+
+mix.js('public/assets/build/js/mypage/book/home-datatables.js', 'public/js/datatables.js')
+mix.js('public/assets/build/js/mypage/book/title-search-datatables.js', 'public/js/title-search-datatables.js')
+mix.js('public/assets/build/js/mypage/bootstrap-form-validation.js', 'public/js/profile-validation.js')
