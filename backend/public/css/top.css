@@ -44,9 +44,6 @@ img {
   /* 見出し */
   /* ボタン */
 }
-#home .home-content h4 {
-  margin-bottom: 0;
-}
 #home .home-content .page-title {
   font-size: 5rem;
   font-family: "Philosopher", serif;

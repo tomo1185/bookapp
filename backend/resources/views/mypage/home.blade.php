@@ -102,40 +102,7 @@
 @stop
 @section('js')
 <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-<script>
-    jQuery(function() {
-        function DataTableRead() {
-            $('#myTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Japanese.json",
-                },
-                "order": [
-                    [3, "desc"]
-                ],
-                'autoWidth': false,
-                'columnDefs': [{
-                        targets: 0,
-                        width: "10%"
-                    },
-                    {
-                        targets: 1,
-                        width: "30%"
-                    },
-                    {
-                        targets: 2,
-                        width: "45%"
-                    },
-                    {
-                        targets: 3,
-                        width: "15%"
-                    },
-                    // { 'visible': false, 'targets': [2,4] },
-                ],
-            });
-        }
-        $(document).ready(DataTableRead);
-    });
-</script>
+<script src="{{ asset('/js/home-datatables.js') }}"></script>
 
 <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
 @stop
