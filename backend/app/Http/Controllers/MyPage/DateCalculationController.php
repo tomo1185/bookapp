@@ -23,9 +23,8 @@ class DateCalculationController extends Controller
             $month[$i] =[
                 'date' => date("Y年m月", strtotime('today -' . $i . ' month')),
                 'first_day' => strtotime('first day of -' . $i . ' month') - $todays_elapsed_time,
-                'last_day' => strtotime('last day of -' . $i . ' month') - $todays_elapsed_time,
+                'last_day' =>  (strtotime('last day of -' . $i . ' month') - $todays_elapsed_time ) + 86399,
                 'monthly_reading_result' => 0,
-                // 'days' => (strtotime('last day  -' . $i . ' month') - strtotime('first day of -' . $i . ' month')) / 86400,
             ];
             
             foreach ($my_charts as $my_chart => $value) {
@@ -36,79 +35,6 @@ class DateCalculationController extends Controller
                 }
             }
         }
-
-        // 確認用
-        // echo('<pre>');
-        // dd($month);
-        // echo('</pre>');
         return $month;
-
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

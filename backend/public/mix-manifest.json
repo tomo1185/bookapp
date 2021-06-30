@@ -1,6 +1,6 @@
 {
     "/js/bookform.js": "/js/bookform.js",
-    "/js/datatables.js": "/js/datatables.js",
+    "/js/home-datatables.js": "/js/home-datatables.js",
     "/js/title-search-datatables.js": "/js/title-search-datatables.js",
     "/js/profile-validation.js": "/js/profile-validation.js",
     "/assets/build/css/mypage/profile_settings.css": "/assets/build/css/mypage/profile_settings.css",

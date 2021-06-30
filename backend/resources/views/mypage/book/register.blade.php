@@ -3,7 +3,6 @@
 @section('title', '書籍登録')
 
 @section('content_header')
-    {{-- <h1>Dashboard</h1> --}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -71,9 +70,9 @@
                             <label class="form-check-label" for="flexCheckDefault">
                                 登録しない
                             </label>
-                        </div>
-                    </div>
-                </div>
+                        </div> <!-- /.form-check -->
+                    </div> <!-- /.form-width -->
+                </div> <!-- /.row -->
                 <div class="form-width" id="number_of_volumes_form">
                     <label for="number_of_volumes" class="form-label">全巻数</label>
                     <div class="row">
@@ -102,12 +101,12 @@
                         <div class="row" id="input_progress" class="ml-3">
                             <p>全巻数を入力後、「反映する」ボタンを押してください。</p>
                             {{-- ここに読書の読書状況を入力するフォームが出力される --}}
-                        </div>
-                    </div>
+                        </div> <!-- /.row #input_progress -->
+                    </div>  <!-- /.overflow-auto -->
                     <button type="submit" class="btn btn-primary mt-2" id="register_submit" disabled>登録する</button>
             </form>
-        </div> <!-- form-wrapper -->
-    </div>
+        </div> <!-- /.form-wrapper -->
+    </div>  <!-- /.container -->
 @stop
 
 @section('css')

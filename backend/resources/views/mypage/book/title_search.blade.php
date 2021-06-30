@@ -3,7 +3,6 @@
 @section('title', '登録書籍検索')
 
 @section('content_header')
-    {{-- <h1>Dashboard</h1> --}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -14,7 +13,7 @@
                     <li class="breadcrumb-item"><a href="/mypage/home">ホーム</a></li>
                     <li class="breadcrumb-item active">登録書籍検索</li>
                 </ol>
-            </div><!-- /.col -->
+            </div>
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 @stop
@@ -60,7 +59,7 @@
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/style.css">
-    {{-- データテーブル --}}
+    {{-- data tables --}}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 @stop
 
@@ -68,9 +67,9 @@
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="{{ asset('/js/title-search-datatables.js') }}"></script>
     <script>
-        /*---------------------------------
-        Check before deleting
-        ----------------------------------*/
+        /*------------------------------- */
+        /* Check before deleting          */
+        /*--------------------------------*/
 
         $('.delete-book-title').click(function() {
             if (confirm("本当に削除しますか？")) {} else {

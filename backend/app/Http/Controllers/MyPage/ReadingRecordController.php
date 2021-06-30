@@ -28,22 +28,15 @@ class ReadingRecordController extends Controller
         $book_information= DB::table('book_information')
         ->join('reading_records', 'book_information.id', '=', 'reading_records.book_title_id')
         ->select('book_information.author_name', 'book_information.author_name_kana' ,'book_information.book_title', 'book_information.book_title_kana', 'book_information.favorite',  'reading_records.updated_at')
-        // ->select('book_information.author_name', 'book_information.book_title', 'reading_records.updated_at')
-        // ->distinct()
-        // ->select('book_information.registant_id', 'author_name', 'book_title', 'number_of_volumes', 'my_charts.updated_at')
         ->where('book_information.registant_id', $login_user)
         ->groupBy('book_information.author_name', 'book_information.book_title')
         ->orderBy('reading_records.updated_at', 'desc')
         ->get();
-        // echo('<pre>');
-        // dd($book_information);
-        // echo('</pre>');
         // ページで表示するユーザー名を取得
         $users = DB::table('users')
         ->select('name')
         ->where('id', $login_user)
         ->first();
-
 
         $my_charts = DB::table('my_charts')
         ->select('*')
@@ -53,9 +46,6 @@ class ReadingRecordController extends Controller
         // DateCalculationController 読み込み(日付と各月の読書数を計算)
         $date_calculation = app()->make('App\Http\Controllers\MyPage\DateCalculationController');
         $monthly_reading = $date_calculation->index($login_user, $my_charts);
-        // echo('<pre>');
-        // var_dump($month);
-        // echo('<pre>');
         
         return view('mypage.home', compact('book_information', 'monthly_reading', 'users'));
     }

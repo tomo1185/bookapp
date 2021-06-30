@@ -3,7 +3,6 @@
 @section('title', 'マイページホーム')
 
 @section('content_header')
-    {{-- <h1>Dashboard</h1> --}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -50,20 +49,13 @@
                         @for ($i = 5; $i >= 0; $i--)
                             "{{ $monthly_reading[$i]['monthly_reading_result'] }}",
                         @endfor
-
                     ],
                 }]
             },
-
             // 設定オプションはここに
             options: {
-                // title: {
-                //     display: true,
-                //     text: '{{ $users->name }}さんの読書記録'
-                // }
             }
         });
-
     </script>
     <div class="recently_read">
         <h5 id="recently-read-book">最近記録した書籍タイトル</h5>
@@ -103,6 +95,5 @@
 @section('js')
 <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="{{ asset('/js/home-datatables.js') }}"></script>
-
 <script src="https://kit.fontawesome.com/99aa88c827.js" crossorigin="anonymous"></script>
 @stop

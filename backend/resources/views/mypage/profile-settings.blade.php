@@ -3,7 +3,6 @@
 @section('title', 'プロフィール設定')
 
 @section('content_header')
-    {{-- <h1>Dashboard</h1> --}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -30,13 +29,11 @@
                     <label for="text" class="form-label current-profile-img-label">現在の画像</label>
                     <div class="current-profile-img">
                         <img src="{{ Storage::url($users->profile_image) }}" alt="profile-photo">
-                        {{-- <img src="{{ url($users->profile_image) }}"  alt="profile-photo"> --}}
                     </div> <!-- profile-photo -->
                     <div class="mt-3" id="form-padding_profimg">
                         <label for="formFile" class="form-label">プロフィール画像を選択</label>
                         <input type="file" class="form-control" id="formFile" name="profile_image"
                             accept="image/png, image/jpeg">
-                        {{-- <input type="file" class="form-control"  id="formFile" name="profile_image" accept=".jpg, .jpeg, .png"> --}}
                         <div class="invalid-feedback">
                             .jpg, .jpeg, .pngのファイル拡張子を選択してください
                         </div>
@@ -70,13 +67,12 @@
                                 空欄もしくはパスワードが不一致です
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- /.row -->
                     <button type="submit" class="btn btn-primary mt-2">変更する</button>
-                </div> <!-- .col-sm-12 -->
+                </div> <!-- /.col-sm-12 -->
             </form>
-            {{-- </div> <!-- .row --> --}}
-        </div>
-    </div> <!-- container -->
+        </div> <!-- /.form-wrapper -->
+    </div> <!-- .container -->
 @stop
 
 @section('css')
@@ -84,7 +80,7 @@
 @stop
 
 @section('js')
-<script src="{{ asset('/js/profile-validation.js') }}"></script>
+    <script src="{{ asset('/js/profile-validation.js') }}"></script>
     <script>
         // password-inputの値とpattern属性を連動させる
         $('#password-input').on('input', function() {

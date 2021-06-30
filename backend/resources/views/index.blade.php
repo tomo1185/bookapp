@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" href="{{ url('/favicons/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
     <link href="{{ asset('/css/top.css') }}" rel="stylesheet">
 </head>
@@ -35,12 +34,11 @@
         </header>
 
         <div class="home-content wrapper">
-            {{-- <h2 class="page-title">We'll Make Your Day</h2> --}}
             <p>ポートフォリオ用に制作した<br>読書記録アプリです</p>
             <h3 style="margin-bottom:0;">読書記録APP紹介動画</h3>
-            <iframe src="https://www.youtube.com/embed/smkp4FPb_f0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/smkp4FPb_f0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
-            {{-- <a class="button" href="{{ route('login') }}">ログイン</a> --}}
+            <iframe src="https://www.youtube.com/embed/smkp4FPb_f0" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
         </div>
         <!--/.home-content -->
         <footer>
@@ -48,8 +46,7 @@
                 <p>©portfolio-tomo.com</p>
             </div>
         </footer>
-    </div>
-    <!--/#home -->
+    </div> <!-- /#home -->
 </body>
 
 </html>
