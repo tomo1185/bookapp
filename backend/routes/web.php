@@ -6,6 +6,7 @@ use App\Http\Controllers\MyPage\BookManageController;
 use App\Http\Controllers\MyPage\ProfileSettingsController;
 use Illuminate\Support\Facades\Auth;
 // use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MyPage\LaravelCollectiveTestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,13 @@ Route::get('/', function () {
     return view('index');
     // return view('welcome');
 });
+
+Route::get('/test', function () {
+    return view('laravelcollectivetest');
+    // return view('welcome');
+});
+Route::get('/test/store', [LaravelCollectiveTestController::class, 'store'])->name('test.store');
+
 
 
 // ---------------------------------
