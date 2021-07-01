@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => '読書記録APP',
     'title_prefix' => '',
     'title_postfix' => '',
 
