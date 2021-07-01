@@ -45,7 +45,7 @@
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </button></a>
                             {!! Form::open(['route' => ['book_manage.destroy', 'id' => $item->id]]) !!}
-                            {{Form::token()}}
+                            @csrf
                             {!! Form::button('<i class="fa fa-lg fa-fw fa-trash-alt"></i>',
                             ['class' => 'btn btn-xs btn-default text-danger shadow delete-book-title',
                              'title' => 'destroy',
