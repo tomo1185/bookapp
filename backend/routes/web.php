@@ -19,18 +19,14 @@ use App\Http\Controllers\MyPage\LaravelCollectiveTestController;
 */
 // Auth::routes();
 
+
+// ---------------------------------
+//*  読書記録APPトップページ      */
+// ---------------------------------
 Route::get('/', function () {
     return view('index');
     // return view('welcome');
 });
-
-Route::get('/test', function () {
-    return view('laravelcollectivetest');
-    // return view('welcome');
-});
-Route::get('/test/store', [LaravelCollectiveTestController::class, 'store'])->name('test.store');
-
-
 
 // ---------------------------------
 //*  認証                         */

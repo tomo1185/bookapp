@@ -40,7 +40,6 @@ class ProfileSettingsController extends Controller
             ->select('id', 'email', 'password', 'profile_image')
             ->where('id', $login_user)
             ->first();
-        // dd($profile_data);
         return view('mypage.profile-settings', compact('users'));
     }
 
@@ -68,16 +67,13 @@ class ProfileSettingsController extends Controller
         ]);
         $users->profile_image= $request->file('profile_image');
         if ($users->profile_image) {
-            // echo "1通過";
             //アップロードされた画像を保存する
             $path = $users->profile_image->store('uploads',"public");
             //画像の保存に成功したらDBに記録する
             if ($path) {
-                // echo "2通過";
                 $users->where('id', $id)
                 ->update([
                     'email' => $request->input('email'),
-                    // 'email_verified_at' => null,
                     'profile_image' => $path,
                     'password' => Hash::make($request->input('password')),
                     'updated_at' => Carbon::now()
